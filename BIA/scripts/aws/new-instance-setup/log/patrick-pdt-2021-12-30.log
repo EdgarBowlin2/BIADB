@@ -1,0 +1,598 @@
+The database instance ID is patrick-pdt
+{
+    "StackId": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/patrick-pdt-rds/d9f79010-6990-11ec-843e-0a2778c8707e"
+}
+
+An error occurred (DBInstanceNotFound) when calling the DescribeDBInstances operation: DBInstance patrick-pdt not found.
+Updating DBADMIN password in database and Vault.
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "patrick-pdt",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "oracle-ee",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "dbadmin",
+        "DBName": "ORCL",
+        "Endpoint": {
+            "Address": "patrick-pdt.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com",
+            "Port": 1521,
+            "HostedZoneId": "Z2YROVNTF0QJSQ"
+        },
+        "AllocatedStorage": 100,
+        "InstanceCreateTime": "2021-12-30T17:00:35.842000+00:00",
+        "PreferredBackupWindow": "05:00-06:00",
+        "BackupRetentionPeriod": 30,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-04fa0c62",
+                "Status": "active"
+            },
+            {
+                "VpcSecurityGroupId": "sg-00ae03949eb7c2775",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "bip-dba-oracle-ee-19",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-gov-west-1b",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "db-subnet-prod-gp-app-prod-a",
+            "DBSubnetGroupDescription": "Security Group for Application Database in Prod A VPC",
+            "VpcId": "vpc-5e3ae53a",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-b8caacdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-8508cfdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1c"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-73c7a205",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sat:06:00-sat:07:00",
+        "PendingModifiedValues": {
+            "MasterUserPassword": "****"
+        },
+        "LatestRestorableTime": "2021-12-30T17:09:11+00:00",
+        "MultiAZ": false,
+        "EngineVersion": "19.0.0.0.ru-2021-07.rur-2021-07.r1",
+        "AutoMinorVersionUpgrade": false,
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "LicenseModel": "bring-your-own-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19-pa-rpt",
+                "Status": "in-sync"
+            }
+        ],
+        "CharacterSetName": "AL32UTF8",
+        "NcharCharacterSetName": "AL16UTF16",
+        "PubliclyAccessible": false,
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/70921ec6-915e-4cfe-bf33-323e6bcc5ab0",
+        "DbiResourceId": "db-HU6JNQEY5KTJQQ2CFBRSIF7CXY",
+        "CACertificateIdentifier": "rds-ca-2017",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": true,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws-us-gov:rds:us-gov-west-1:532813628429:db:patrick-pdt",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "PerformanceInsightsEnabled": false,
+        "EnabledCloudwatchLogsExports": [
+            "alert",
+            "listener"
+        ],
+        "DeletionProtection": true,
+        "AssociatedRoles": [
+            {
+                "RoleArn": "arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2",
+                "FeatureName": "S3_INTEGRATION",
+                "Status": "ACTIVE"
+            }
+        ],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "patrick-pdt-rds"
+            },
+            {
+                "Key": "Tenant",
+                "Value": "patrick"
+            },
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/patrick-pdt-rds/d9f79010-6990-11ec-843e-0a2778c8707e"
+            },
+            {
+                "Key": "vaec:VAECID",
+                "Value": "AWG20181214001"
+            },
+            {
+                "Key": "Portfolio",
+                "Value": "BAM"
+            },
+            {
+                "Key": "vaec:CKID",
+                "Value": "180"
+            },
+            {
+                "Key": "vaec:Environment",
+                "Value": "Production"
+            },
+            {
+                "Key": "Product",
+                "Value": "VBMS"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "RDStemplate"
+            },
+            {
+                "Key": "ApplicationID",
+                "Value": "patrick"
+            },
+            {
+                "Key": "ProductLine",
+                "Value": "BIA"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false
+    }
+}
+Waiting for AWS to complete DBADMIN password change.
+Executing baseline script.
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Thu Dec 30 17:16:27 2021
+Version 19.12.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.12.0.0.0
+
+SQL> Enter value for 4h9fxnzzuvpo: 
+PL/SQL procedure successfully completed.
+
+
+Profile created.
+
+
+Profile created.
+
+
+Profile created.
+
+
+Profile created.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+Tablespace created.
+
+old   1: CREATE USER BIP_DBA IDENTIFIED BY "&1"
+new   1: CREATE USER BIP_DBA IDENTIFIED BY "2exit?t1QmO"
+CREATE USER BIP_DBA IDENTIFIED BY "2exit?t1QmO"
+*
+ERROR at line 1:
+ORA-28003: password verification for the specified password failed
+ORA-20000: password length less than 16 bytes
+
+
+GRANT DBA TO BIP_DBA
+             *
+ERROR at line 1:
+ORA-01917: user or role 'BIP_DBA' does not exist
+
+
+ALTER USER BIP_DBA PROFILE DBA_PROFILE
+           *
+ERROR at line 1:
+ORA-01918: user 'BIP_DBA' does not exist
+
+
+old   1: ALTER USER DBSNMP IDENTIFIED BY "&2"
+new   1: ALTER USER DBSNMP IDENTIFIED BY "N?1pCe<z3h)^?fvG&>o="
+
+User altered.
+
+
+User altered.
+
+
+Role created.
+
+
+Grant succeeded.
+
+
+Role created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+old   1: CREATE USER LIQUIBASE_ADMIN IDENTIFIED BY "&3"
+new   1: CREATE USER LIQUIBASE_ADMIN IDENTIFIED BY "k#49bag#xsLyC=ZF2eRS"
+
+User created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+User altered.
+
+
+Role created.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+Grant succeeded.
+
+old   1: CREATE USER VANSOCSCAN IDENTIFIED BY "&4"
+new   1: CREATE USER VANSOCSCAN IDENTIFIED BY "Y_2ikl#7WDeL2Fa8ot5S"
+
+User created.
+
+
+Grant succeeded.
+
+
+User altered.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.12.0.0.0
+Adding secrets to vault.
+Key              Value
+---              -----
+created_time     2021-12-30T17:16:31.221425549Z
+deletion_time    n/a
+destroyed        false
+version          1
+Login successful
+Target "patrick-pdt:oracle_database" added successfully
+{
+    "StackId": "arn:aws-us-gov:cloudformation:us-gov-east-1:532813628429:stack/patrick-pdt-rds-dr/7777a9d0-6994-11ec-8909-06e934624dfc"
+}

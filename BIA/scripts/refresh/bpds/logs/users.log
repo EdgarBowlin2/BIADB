@@ -1,0 +1,84 @@
+
+Profile created.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+drop user BKEELEY
+          *
+ERROR at line 1:
+ORA-01918: user 'BKEELEY' does not exist 
+
+
+
+User dropped.
+
+drop user MFRIEDBERG
+          *
+ERROR at line 1:
+ORA-01918: user 'MFRIEDBERG' does not exist 
+
+
+drop user ACRUZ
+          *
+ERROR at line 1:
+ORA-01918: user 'ACRUZ' does not exist 
+
+
+
+User created.
+
+
+User created.
+
+
+User created.
+
+
+User created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+User altered.
+
+
+Profile dropped.
+

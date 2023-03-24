@@ -1,0 +1,117 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Oracle RDS Replica for BID DEV, STAGE, and PROD VPCs
+Parameters:
+  VPC:
+    Description: The VPC of the RDS database instance.
+    Type: String
+    AllowedValues:
+      - dev
+      - stage
+      - prod
+  SourceARN:
+    Type: String
+    Description: The ARN of the source database instance.
+  SourceEncrypted:
+    Description: Encryption setting for the source database.
+    Type: String
+    AllowedValues:
+      - false
+      - true
+  SourceName:
+    Description: The name of the source database instance.
+    Type: String
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9-]*[a-zA-Z0-9]'
+  StorageType:
+    Description: >-
+      Storage Type for the RDS database instance.  Privisioned IOPS (io1) use
+      the setting in the optionalIops parameter.
+    Type: String
+    AllowedValues:
+      - gp2
+      - io1
+  StorageTypeio1Iops:
+    Description: >-
+      Number of Privisioned IOPS (1000-65536).  This setting will only be used
+      if the StorageType parameter is set to io1.
+    Type: Number
+    Default: 1000
+    MinValue: 1000
+    MaxValue: 65536
+Mappings:
+  VPCMappings:
+    dev:
+      mapDBSubnetGroupName: db-subnet-dev-gp-rds
+      mapKmsKeyId: arn:aws-us-gov:kms:us-gov-east-1:261727212250:key/eb3ac3fb-4c33-49eb-a1ab-f505d955331e
+      tagEnvironment: Development
+      tagVAECID: AWG20181011001
+      mapVPCSecurityGroups:
+        - sg-06b7289d1235473cf
+    stage:
+      mapDBSubnetGroupName: db-subnet-dev-gp-rds
+      mapKmsKeyId: arn:aws-us-gov:kms:us-gov-east-1:621261082401:key/8321bda3-64ab-4452-9a89-d2660a019d01
+      tagEnvironment: Stage
+      tagVAECID: AWG20190114001
+      mapVPCSecurityGroups:
+        - sg-045c230361b105923
+    prod:
+      mapDBSubnetGroupName: db-subnet-prod-gp-app-prod-a
+      mapKmsKeyId: arn:aws-us-gov:kms:us-gov-east-1:532813628429:key/58d9374b-1f8f-49b7-87f3-9636b8d18183
+      tagEnvironment: Production
+      tagVAECID: AWG20181214001
+      mapVPCSecurityGroups:
+        - sg-0f66faad61ac84301
+Conditions:
+  condIops: !Equals 
+    - !Ref StorageType
+    - io1
+  condKmsKeyId: !Equals 
+    - true
+    - !Ref SourceEncrypted
+Resources:
+  RDStemplate:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: false
+      CopyTagsToSnapshot: true
+      DBInstanceIdentifier: !Ref SourceName
+      DBSubnetGroupName: !FindInMap 
+        - VPCMappings
+        - !Ref VPC
+        - mapDBSubnetGroupName
+      DeletionProtection: true
+      Iops: !If 
+        - condIops
+        - !Ref StorageTypeio1Iops
+        - !Ref AWS::NoValue
+      KmsKeyId: !If 
+        - condKmsKeyId
+        - !FindInMap 
+          - VPCMappings
+          - !Ref VPC
+          - mapKmsKeyId
+        - !Ref AWS::NoValue
+      LicenseModel: bring-your-own-license
+      MultiAZ: false
+      PubliclyAccessible: false
+      SourceDBInstanceIdentifier: !Ref SourceARN
+      SourceRegion: us-gov-west-1
+      StorageEncrypted: !Ref SourceEncrypted
+      StorageType: !Ref StorageType
+      Tags:
+        - Key: 'vaec:CKID'
+          Value: '180'
+        - Key: 'vaec:Environment'
+          Value: !FindInMap 
+            - VPCMappings
+            - !Ref VPC
+            - tagEnvironment
+        - Key: 'vaec:VAECID'
+          Value: !FindInMap 
+            - VPCMappings
+            - !Ref VPC
+            - tagVAECID
+      VPCSecurityGroups: !FindInMap 
+        - VPCMappings
+        - !Ref VPC
+        - mapVPCSecurityGroups

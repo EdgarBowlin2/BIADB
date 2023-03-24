@@ -1,0 +1,20 @@
+#----------------------------------------------------------------------------------
+#-  BIA Master Environment File 
+#----------------------------------------------------------------------------------
+#-  The setenv file replaces all other env files and makes use of the function
+#-  library $SCRIPT/functions/functions.sh. 
+#----------------------------------------------------------------------------------
+
+#- Set default scripting language
+#!/bin/bash
+#- Set PATH
+export PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:.:$PATH
+#- Include functions library
+. $LIB_DIR/functions/functions.sh
+#- Use Github PATH 
+GITROOT=$(git rev-parse --show-toplevel)
+#- Set emcli path for emcli command line execution
+export EMCLI_HOME=$HOME/software/emcli
+#- Execute function "set_vault_environment" to enable set/retrieve Vault values
+set_vault_environment
+

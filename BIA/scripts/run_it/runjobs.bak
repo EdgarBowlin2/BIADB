@@ -1,0 +1,267 @@
+#!/bin/bash
+#-------------------------------------------------------------------------------
+#- RunJobs.sh - Script Execution Management		 		       -
+#-------------------------------------------------------------------------------
+#- Edgar Bowlin		       				            6-23-2021  -
+#-------------------------------------------------------------------------------
+#- RunJobs.sh (Script Execution Management) will set environment variables,    -
+#- execute scripts, monitor progress, and report the outcome, emailing the     -
+#- results to an input distribution list.     			   	       -
+#- RunJobs.sh supports the report_dropin.sh framework:			       -
+#- ~/scripts/monitor/report_dropin.sh				               -
+#- supporting the execution of multiple SQL statements in a single HTML report.-
+#- Emailing HTML results to an input distribution list, with CSV attached      -
+#- files, if required.  					       	       -
+#- RunJobs.sh is as generic as possible, with maximum code reuse, and          -
+#- enough comments and documentation for those with less scripting experience  -
+#- to quickly understand and support the code.                                 -
+#-------------------------------------------------------------------------------
+#- Revision History 						               -
+#-------------------------------------------------------------------------------
+#- 06-30-2021  1.1  E Bowlin - Added thorough comments for all new and existing-
+#-                             users. Added -i IMPORTANT flag to separate high -
+#-                             priority script reporting from normal scripts.  -
+#-                                                                             -
+#- 07-08-2021  1.2  E Bowlin - Added code to prepend Oracle SID and report     -
+#- 			       name to email subject for all report_dropin.sh  -
+#-                             executions and added code to supress SUCCESS    -
+#-                             emails if -s flag is present.                   - 
+#-------------------------------------------------------------------------------
+#- Dependencies								       -
+#-------------------------------------------------------------------------------
+#- Include: .  ~/scripts/functions.functions.sh		                       -
+#- Linux User: oracle  							       -
+#-------------------------------------------------------------------------------
+
+#-----------------------------------------------------
+#-  Execute BASH .profile and include functions.
+#-----------------------------------------------------
+. ~/.bash_profile > /dev/null 
+. ~/scripts/functions/functions.sh > /dev/null
+
+#-------------------------------------------------------
+#-  Set start_time via function to get current sysdate
+#-  and format as needed.  Get ORACLE_SID value from
+#-  currently running Oracle processes.
+#-------------------------------------------------------
+start_time=$(get_timestamp)
+ORACLE_SID=.`ps -ef | grep pmon | grep -vE grep | grep -vE ASM | cut -d_ -f3`
+
+#-------------------------------------------------------
+#-  Export default values for all options variables.
+#-------------------------------------------------------
+export BLACKOUT=0
+export EMAIL=0
+export IMPORTANT=0
+export JOB_CATEGORY=A
+export SUCCESSNOEMAIL=0
+
+#-------------------------------------------------------
+#-  Get input parameters using BASH getopts command.
+#-  Each possible input flag (option) must be listed
+#-  after the getopts command.  Also, options that may
+#-  have arguments MUST be followed by a colon, while
+#-  options that cannot have arguments must NOT be
+#-  followed by a colon.  Violating these rules will
+#-  cause inconsistent execution results!
+#-------------------------------------------------------
+while getopts 'c:m:p:r:t:beis' OPTION
+do
+  case $OPTION in
+  c)    export COMMAND_LINE=${OPTARG}
+        ;;
+  m)    export MESSAGE_SUBJECT=${OPTARG}
+        ;;
+  p)    export PASS_PARMS=${OPTARG}
+        ;;
+  r)    export RECIPIENTS=${OPTARG}
+        ;;
+  b)    export BLACKOUT=1
+        ;;
+  t)    export JOB_CATEGORY=${OPTARG}
+        ;;
+  e)  export EMAIL=1
+  ;;
+  i)  export IMPORTANT=1
+  ;;
+  s)  export SUCCESSNOEMAIL=1 
+  ;;
+  ?)    COMMAND_LINE=run_it/run_it_errorV2
+        ;;
+   esac
+done
+
+#--------------------------------------------------------------
+#-  If the current command is "report_dropin" then prepend
+#-  the email subject text with the report_dropin parameters, 
+#-  Oracle SID and Report Name. 
+#--------------------------------------------------------------
+
+if [ $COMMAND_LINE == "/monitor/report_dropin.sh" ]; then
+        DB_INSTANCE=`echo $PASS_PARMS | awk '{ print $1 }'`
+        REPORT_NAME=`echo $PASS_PARMS | awk '{ print $2 }'`
+        MESSAGE_SUBJECT="DB: "$DB_INSTANCE" REPORT: "$REPORT_NAME" "$MESSAGE_SUBJECT
+	export MESSAGE_SUBJECT
+fi
+
+#------------------------------------------
+#-  After getopts processes the first set
+#-  of input options/arguments, shift
+#-  "removes" those options and begins at
+#-  the next command line option, if any.
+#------------------------------------------
+
+shift $(($OPTIND - 1))
+STATUS=0
+
+#------------------------------------------
+#- If COMMAND_LINE is empty, then echo
+#- error message and end script execution.
+#------------------------------------------
+
+echo `[ -z $COMMAND_LINE ]` && echo NOT EMPTY || echo EMPTY
+
+if [ -z "$COMMAND_LINE" ]; then
+  echo COMMAND_LINE not found
+  COMMAND_LINE=run_it/run_it_errorV2
+fi
+
+#------------------------------------------------------
+#- Export COMMAND_NAME as basename (run_it_jr) space
+#- script path, then command line which will include
+#- command and any arguments.
+#------------------------------------------------------
+
+export COMMAND_NAME=`basename ${SCRIPT_DIR}${COMMAND_LINE}`
+
+echo SCRIPT_DIR=$SCRIPT_DIR
+
+#------------------------------------------
+#- Set default values for date/timestamp
+#- and execution directory (RUN_DIR).
+#------------------------------------------
+
+dtStamp=`date +%m%d%y.%H%M`
+RUN_DIR=${SCRIPT_DIR}/run_it
+
+#-----------------------------------------
+#- If Subject Message does not exist,
+#- export "COMMAND_NAME" as a default
+#- subject for email.
+#-----------------------------------------
+
+if [ -z $MESSAGE_SUBJECT ]; then
+  export MESSAGE_SUBJECT="${COMMAND_NAME}"
+fi
+
+#----------------------------------------
+#- If Job Category does not exist, then
+#- assign a default JOB_CATEGORY value
+#- of I (Info).
+#----------------------------------------
+
+if [ -z $JOB_CATEGORY ]; then
+  export JOB_CATEGORY=I
+fi
+
+#-------------------------------------------
+#- Export the full path and command plus
+#- arguments in the variable FULL_COMMAND.
+#-------------------------------------------
+
+export FULL_COMMAND=${SCRIPT_DIR}/${COMMAND_LINE}   # KEEP
+#export FULL_COMMAND=/home/oracle/scripts/test/test.sh
+
+#------------------------------------------------
+#- Test SCRIPT_DIR/COMMAND_LINE to ensure it is
+#- valid. If not, echo "Invalid Script" and
+#- exit run_it script execution.
+#------------------------------------------------
+
+echo `[ -f ${SCRIPT_DIR}/${COMMAND_LINE} ]` && echo FOUND || echo NOT FOUND
+
+if [ -f ${SCRIPT_DIR}/${COMMAND_LINE} ]; then
+  echo "Valid Script"
+else
+  echo "Invalid Script"
+  COMMAND_LINE=run_it/run_it_errorV2
+fi
+
+#------------------------------------------------------------
+#- If a recipient list file was specified on the command line
+#- use it, otherwise default to DBAHeader.txt
+#------------------------------------------------------------
+
+if [ -f ${RUN_DIR}/${RECIPIENTS} ]; then
+  export RECIPIENTS=${RUN_DIR}/${RECIPIENTS}
+else
+  export RECIPIENTS=${RUN_DIR}/DBAHeader.txt
+fi
+
+#-----------------------------------------------------------
+#- If the job is blacked out, set log to blackout.txt,
+#- export RETURN_STATUS as BLACKOUT, echo JOB_CATEGORY and
+#- RETURNED_STATUS, then insert a record into the
+#- VBMS_DBA.ALL_SCHEDULED_JOB_LOG table recording the
+#- blackout.
+#-----------------------------------------------------------
+
+if [ $BLACKOUT -eq 1 ]; then
+  EXEC_LOG=${SCRIPT_DIR}/run_it/blackout.txt
+  export RETURNED_STATUS=BLACKOUT
+  echo Job_Category $JOB_CATEGORY
+  echo Returned_status $RETURNED_STATUS
+  run_it_db_log # V2 - log the blackout
+  echo "subject:BLACKOUT ${MESSAGE_SUBJECT} on ${HOST}." | cat - ${RECIPIENTS} ${EXEC_LOG} | /usr/sbin/sendmail -t
+  exit
+fi
+
+#-----------------------------------------------------------
+#- Using the LOG_DIR value set in the oracle .profile,
+#- create the LOG_DIR filename by concatenating "run_it"
+#- with the command name, Oracle SID, and date/time plus
+#- ".log".
+#-----------------------------------------------------------
+
+# LOG_DIR= --set in profile
+EXEC_LOG=${LOG_DIR}/run_it.${COMMAND_NAME}$ORACLE_SID.${dtStamp}.log
+
+echo LOG is $EXEC_LOG
+
+#------------------------------------------------------------
+#- Execute the command argument with input parameters,
+#- use the tee command to output standard out and errors to
+#- both the screen and the log file simultaneously.
+#- After command execution, set STATUS and set end_time
+#- to current date/time.
+#------------------------------------------------------------
+
+#Run the passed command
+${SCRIPT_DIR}/${COMMAND_LINE} ${PASS_PARMS} $* 2>&1 | tee ${EXEC_LOG}
+STATUS=${PIPESTATUS[0]} #PIPESTATUS is a 0 based array of all the stati of the previous piped commands
+end_time=$(get_timestamp)  # V2
+
+#----------------------------------------------------------
+#- Based on the STATUS of the executed command, prefix
+#- email subject with either SUCCEEDED or FAILED, then
+#- email command results to email recipients.
+#----------------------------------------------------------
+#- If SUCCESSNOEMAIL is 0 (not set) then email SUCCESS 
+#- messages.  If SUCCESSNOEMAIL is set (1) then DO NOT 
+#- email SUCCESS messages. 
+#----------------------------------------------------------
+
+if [ ${STATUS} -ne 0 ]; then
+  echo "subject:FAILED ${MESSAGE_SUBJECT} on ${HOST}." | cat - ${RECIPIENTS} ${EXEC_LOG} | /usr/sbin/sendmail -t
+  export RETURNED_STATUS=FAILED
+  run_it_db_log # V2 - log the failure
+  exit 1
+else
+  export RETURNED_STATUS=SUCCEEDED
+  if [[ "$JOB_CATEGORY" = "A" || $EMAIL -eq 1 ]] && [[ $SUCCESSNOEMAIL -eq 0 ]]; then
+     echo "subject:SUCCEEDED ${MESSAGE_SUBJECT} on ${HOST}." | cat - ${RECIPIENTS} ${EXEC_LOG}  | /usr/sbin/sendmail -t
+  fi
+  run_it_db_log # V2 - log the success
+  echo $?
+fi
+

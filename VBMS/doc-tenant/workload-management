@@ -1,0 +1,7 @@
+## DMS
+
+ORA-26086: direct path does not support triggers
+
+1. alter trigger VBMSUI.AFTER_MODIFY_DUD_TABLE disable;
+2. restart DMS task
+3. alter trigger VBMSUI.AFTER_MODIFY_DUD_TABLE enable;

@@ -1,0 +1,75 @@
+Login successful
+Synchronized successfully
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 103: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 104: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 105: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 106: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 107: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 108: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 109: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+
+Oracle OEM Database Status written to BIAHealthCheck.txt
+
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 158: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 159: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 162: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/DMS.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 165: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/DMS.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 168: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/DMS.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 171: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/DMS.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 174: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/DMS.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 177: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/DMS.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 180: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/DMS.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 183: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/DMS.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 185: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 186: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 187: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+cat: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/DMS.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 188: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 190: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 191: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 192: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 193: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 195: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 196: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 197: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 198: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 204: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 205: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 206: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 207: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 209: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 210: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 211: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 212: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 218: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 219: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 220: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 221: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 223: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 224: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 225: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 226: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 232: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 233: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 234: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 235: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 237: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 238: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 239: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 240: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+
+Amazon AWS Data Migration Services Jobs for Fraud Prevention Latency/Status Written to BIAHealthCheck.txt
+
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 251: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 252: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 253: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 254: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+
+Amazon AWS Cloud Formation Template ProdTest Refresh Status Written to BIAHealthCheck.txt
+
+/home/oracle/github/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 265: /home/oracle/scripts/bia-devel/BIA/scripts/dbhealth/BIAHealthCheck.txt: No such file or directory
+
+BIA Health Check Report Complete and Emailed to BIA Team Recipients.
+

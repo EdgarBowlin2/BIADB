@@ -1,0 +1,1554 @@
+
+Running Pre Refresh script...
+
+Running Pre Refresh script...
+
+Running Post Refresh script...
+
+Running Pre Refresh script...
+
+Running Pre Refresh script...
+Wed Mar  8 16:28:44 UTC 2023
+ aws cloudformation delete-stack --stack-name bpds-preprod-orcl-replica
+Wed Mar  8 16:29:46 UTC 2023
+ aws cloudformation wait stack-delete-complete --stack-name bpds-preprod-orcl-replica
+
+Wed Mar  8 16:30:37 UTC 2023
+ aws cloudformation create-stack --stack-name bpds-preprod-orcl-replica --template-url https://prod-dbas.s3-us-gov-west-1.amazonaws.com/BIP/BPDS/PRODTEST/bpds-preprod-orcl-replica-v1-022823.yml
+Wed Mar  8 16:31:38 UTC 2023
+ aws cloudformation wait stack-create-complete --stack-name bpds-preprod-orcl-replica
+Wed Mar  8 16:33:10 UTC 2023
+Wed Mar  8 16:34:12 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Wed Mar  8 16:34:13 UTC 2023
+ aws rds promote-read-replica --db-instance-identifier bpds-preprod
+Wed Mar  8 16:35:14 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Repeat Monitor
+Wed Mar  8 16:35:15 UTC 2023
+Wed Mar  8 16:35:17 UTC 2023
+
+Running Post Refresh script...
+
+Running Pre Refresh script...
+Wed Mar  8 18:01:40 UTC 2023
+Wed Mar  8 18:02:41 UTC 2023
+Wed Mar  8 18:04:13 UTC 2023
+{
+    "StackId": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/a2ce4cf0-bddb-11ed-927c-025fc15c6b8e"
+}
+Wed Mar  8 18:05:14 UTC 2023
+Wed Mar  8 18:53:13 UTC 2023
+Wed Mar  8 18:54:14 UTC 2023
+Wed Mar  8 18:54:15 UTC 2023
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "bpds-preprod",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "oracle-ee",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "dbadmin",
+        "DBName": "BPDPRD",
+        "Endpoint": {
+            "Address": "bpds-preprod.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com",
+            "Port": 1521,
+            "HostedZoneId": "Z2YROVNTF0QJSQ"
+        },
+        "AllocatedStorage": 100,
+        "InstanceCreateTime": "2023-03-08T18:24:48.322000+00:00",
+        "PreferredBackupWindow": "07:59-08:29",
+        "BackupRetentionPeriod": 0,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-00ae03949eb7c2775",
+                "Status": "active"
+            },
+            {
+                "VpcSecurityGroupId": "sg-04fa0c62",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "bip-dba-oracle-ee-19-pa",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-gov-west-1a",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "db-subnet-prod-gp-app-prod-a",
+            "DBSubnetGroupDescription": "Security Group for Application Database in Prod A VPC",
+            "VpcId": "vpc-5e3ae53a",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-73c7a205",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-8508cfdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1c"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-b8caacdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sat:06:00-sat:06:30",
+        "PendingModifiedValues": {
+            "BackupRetentionPeriod": 1
+        },
+        "MultiAZ": false,
+        "EngineVersion": "19.0.0.0.ru-2021-10.rur-2021-10.r1",
+        "AutoMinorVersionUpgrade": false,
+        "ReadReplicaSourceDBInstanceIdentifier": "bpds-prod",
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "ReplicaMode": "open-read-only",
+        "LicenseModel": "bring-your-own-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19-pa-rpt-v2",
+                "Status": "in-sync"
+            }
+        ],
+        "CharacterSetName": "AL32UTF8",
+        "NcharCharacterSetName": "AL16UTF16",
+        "PubliclyAccessible": false,
+        "StatusInfos": [
+            {
+                "StatusType": "read replication",
+                "Normal": true,
+                "Status": "replicating"
+            }
+        ],
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/70921ec6-915e-4cfe-bf33-323e6bcc5ab0",
+        "DbiResourceId": "db-FUO523AIRKV4ADUGJQI2NE2D6E",
+        "CACertificateIdentifier": "rds-ca-rsa4096-g1",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": false,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws-us-gov:rds:us-gov-west-1:532813628429:db:bpds-preprod",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "PerformanceInsightsEnabled": false,
+        "DeletionProtection": false,
+        "AssociatedRoles": [
+            {
+                "RoleArn": "arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2",
+                "FeatureName": "S3_INTEGRATION",
+                "Status": "ACTIVE"
+            }
+        ],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "bpds-preprod-orcl-replica"
+            },
+            {
+                "Key": "Tenant",
+                "Value": "bpds"
+            },
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/a2ce4cf0-bddb-11ed-927c-025fc15c6b8e"
+            },
+            {
+                "Key": "Portfolio",
+                "Value": "BAM"
+            },
+            {
+                "Key": "Product",
+                "Value": "BIP Platform"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "RDSDatabase"
+            },
+            {
+                "Key": "ApplicationID",
+                "Value": "bpds"
+            },
+            {
+                "Key": "ProductLine",
+                "Value": "BIA"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false,
+        "BackupTarget": "region"
+    }
+}
+Wed Mar  8 18:55:16 UTC 2023
+Repeat Monitor
+Wed Mar  8 19:05:52 UTC 2023
+Wed Mar  8 19:05:53 UTC 2023
+Database Status is Open.
+
+Running Post Refresh script...
+Pushing OEM Agent to Resync...
+
+Running Pre Refresh script...
+Thu Mar  9 11:00:05 UTC 2023
+ aws cloudformation delete-stack --stack-name bpds-preprod-orcl-replica
+Thu Mar  9 11:01:07 UTC 2023
+ aws cloudformation wait stack-delete-complete --stack-name bpds-preprod-orcl-replica
+Thu Mar  9 11:04:40 UTC 2023
+ aws cloudformation create-stack --stack-name bpds-preprod-orcl-replica --template-url https://prod-dbas.s3-us-gov-west-1.amazonaws.com/BIP/BPDS/PRODTEST/bpds-preprod-orcl-replica-v1-022823.yml
+{
+    "StackId": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/3099f3c0-be6a-11ed-8356-06243b6ff87a"
+}
+Thu Mar  9 11:05:41 UTC 2023
+ aws cloudformation wait stack-create-complete --stack-name bpds-preprod-orcl-replica
+Thu Mar  9 11:49:04 UTC 2023
+Stack create is complete
+Thu Mar  9 11:50:05 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Thu Mar  9 11:50:06 UTC 2023
+ aws rds promote-read-replica --db-instance-identifier bpds-preprod
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "bpds-preprod",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "oracle-ee",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "dbadmin",
+        "DBName": "BPDPRD",
+        "Endpoint": {
+            "Address": "bpds-preprod.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com",
+            "Port": 1521,
+            "HostedZoneId": "Z2YROVNTF0QJSQ"
+        },
+        "AllocatedStorage": 100,
+        "InstanceCreateTime": "2023-03-09T11:19:40.144000+00:00",
+        "PreferredBackupWindow": "11:26-11:56",
+        "BackupRetentionPeriod": 0,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-00ae03949eb7c2775",
+                "Status": "active"
+            },
+            {
+                "VpcSecurityGroupId": "sg-04fa0c62",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "bip-dba-oracle-ee-19-pa",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-gov-west-1b",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "db-subnet-prod-gp-app-prod-a",
+            "DBSubnetGroupDescription": "Security Group for Application Database in Prod A VPC",
+            "VpcId": "vpc-5e3ae53a",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-73c7a205",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-8508cfdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1c"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-b8caacdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sat:06:00-sat:06:30",
+        "PendingModifiedValues": {
+            "BackupRetentionPeriod": 1
+        },
+        "MultiAZ": false,
+        "EngineVersion": "19.0.0.0.ru-2021-10.rur-2021-10.r1",
+        "AutoMinorVersionUpgrade": false,
+        "ReadReplicaSourceDBInstanceIdentifier": "bpds-prod",
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "ReplicaMode": "open-read-only",
+        "LicenseModel": "bring-your-own-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19-pa-rpt-v2",
+                "Status": "in-sync"
+            }
+        ],
+        "CharacterSetName": "AL32UTF8",
+        "NcharCharacterSetName": "AL16UTF16",
+        "PubliclyAccessible": false,
+        "StatusInfos": [
+            {
+                "StatusType": "read replication",
+                "Normal": true,
+                "Status": "replicating"
+            }
+        ],
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/70921ec6-915e-4cfe-bf33-323e6bcc5ab0",
+        "DbiResourceId": "db-E5Z3TFUVYZX75KRZHRVDLSDFQM",
+        "CACertificateIdentifier": "rds-ca-rsa4096-g1",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": false,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws-us-gov:rds:us-gov-west-1:532813628429:db:bpds-preprod",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "PerformanceInsightsEnabled": false,
+        "DeletionProtection": false,
+        "AssociatedRoles": [
+            {
+                "RoleArn": "arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2",
+                "FeatureName": "S3_INTEGRATION",
+                "Status": "ACTIVE"
+            }
+        ],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "bpds-preprod-orcl-replica"
+            },
+            {
+                "Key": "Tenant",
+                "Value": "bpds"
+            },
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/3099f3c0-be6a-11ed-8356-06243b6ff87a"
+            },
+            {
+                "Key": "vaec:VAECID",
+                "Value": "AWG20181214001"
+            },
+            {
+                "Key": "Portfolio",
+                "Value": "BAM"
+            },
+            {
+                "Key": "vaec:CKID",
+                "Value": "180"
+            },
+            {
+                "Key": "vaec:Environment",
+                "Value": "Production"
+            },
+            {
+                "Key": "Product",
+                "Value": "BIP Platform"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "RDSDatabase"
+            },
+            {
+                "Key": "ApplicationID",
+                "Value": "bpds"
+            },
+            {
+                "Key": "ProductLine",
+                "Value": "BIA"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false,
+        "BackupTarget": "region"
+    }
+}
+Thu Mar  9 11:51:08 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Repeat Monitor
+Thu Mar  9 12:05:14 UTC 2023
+Stack Promotion is complete
+Thu Mar  9 12:05:16 UTC 2023
+Database Status is Open.
+
+Running Post Refresh script...
+Pushing OEM Agent to Resync...
+
+Running Pre Refresh script...
+Fri Mar 10 11:00:07 UTC 2023
+ aws cloudformation delete-stack --stack-name bpds-preprod-orcl-replica
+Fri Mar 10 11:01:08 UTC 2023
+ aws cloudformation wait stack-delete-complete --stack-name bpds-preprod-orcl-replica
+Fri Mar 10 11:02:40 UTC 2023
+ aws cloudformation create-stack --stack-name bpds-preprod-orcl-replica --template-url https://prod-dbas.s3-us-gov-west-1.amazonaws.com/BIP/BPDS/PRODTEST/bpds-preprod-orcl-replica-v1-022823.yml
+{
+    "StackId": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/13b99480-bf33-11ed-b344-0a11ea61919c"
+}
+Fri Mar 10 11:03:41 UTC 2023
+ aws cloudformation wait stack-create-complete --stack-name bpds-preprod-orcl-replica
+Fri Mar 10 11:41:01 UTC 2023
+Stack create is complete
+Fri Mar 10 11:42:02 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Fri Mar 10 11:42:03 UTC 2023
+ aws rds promote-read-replica --db-instance-identifier bpds-preprod
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "bpds-preprod",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "oracle-ee",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "dbadmin",
+        "DBName": "BPDPRD",
+        "Endpoint": {
+            "Address": "bpds-preprod.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com",
+            "Port": 1521,
+            "HostedZoneId": "Z2YROVNTF0QJSQ"
+        },
+        "AllocatedStorage": 100,
+        "InstanceCreateTime": "2023-03-10T11:16:51.627000+00:00",
+        "PreferredBackupWindow": "13:05-13:35",
+        "BackupRetentionPeriod": 0,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-00ae03949eb7c2775",
+                "Status": "active"
+            },
+            {
+                "VpcSecurityGroupId": "sg-04fa0c62",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "bip-dba-oracle-ee-19-pa",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-gov-west-1a",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "db-subnet-prod-gp-app-prod-a",
+            "DBSubnetGroupDescription": "Security Group for Application Database in Prod A VPC",
+            "VpcId": "vpc-5e3ae53a",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-73c7a205",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-8508cfdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1c"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-b8caacdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sat:06:00-sat:06:30",
+        "PendingModifiedValues": {
+            "BackupRetentionPeriod": 1
+        },
+        "MultiAZ": false,
+        "EngineVersion": "19.0.0.0.ru-2021-10.rur-2021-10.r1",
+        "AutoMinorVersionUpgrade": false,
+        "ReadReplicaSourceDBInstanceIdentifier": "bpds-prod",
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "ReplicaMode": "open-read-only",
+        "LicenseModel": "bring-your-own-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19-pa-rpt-v2",
+                "Status": "in-sync"
+            }
+        ],
+        "CharacterSetName": "AL32UTF8",
+        "NcharCharacterSetName": "AL16UTF16",
+        "PubliclyAccessible": false,
+        "StatusInfos": [
+            {
+                "StatusType": "read replication",
+                "Normal": true,
+                "Status": "replicating"
+            }
+        ],
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/70921ec6-915e-4cfe-bf33-323e6bcc5ab0",
+        "DbiResourceId": "db-WFQVDLHYJZFTOTZBEPJD3F6DXQ",
+        "CACertificateIdentifier": "rds-ca-rsa4096-g1",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": false,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws-us-gov:rds:us-gov-west-1:532813628429:db:bpds-preprod",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "PerformanceInsightsEnabled": false,
+        "DeletionProtection": false,
+        "AssociatedRoles": [
+            {
+                "RoleArn": "arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2",
+                "FeatureName": "S3_INTEGRATION",
+                "Status": "ACTIVE"
+            }
+        ],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "bpds-preprod-orcl-replica"
+            },
+            {
+                "Key": "Tenant",
+                "Value": "bpds"
+            },
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/13b99480-bf33-11ed-b344-0a11ea61919c"
+            },
+            {
+                "Key": "vaec:VAECID",
+                "Value": "AWG20181214001"
+            },
+            {
+                "Key": "Portfolio",
+                "Value": "BAM"
+            },
+            {
+                "Key": "vaec:CKID",
+                "Value": "180"
+            },
+            {
+                "Key": "vaec:Environment",
+                "Value": "Production"
+            },
+            {
+                "Key": "Product",
+                "Value": "BIP Platform"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "RDSDatabase"
+            },
+            {
+                "Key": "ApplicationID",
+                "Value": "bpds"
+            },
+            {
+                "Key": "ProductLine",
+                "Value": "BIA"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false,
+        "BackupTarget": "region"
+    }
+}
+Fri Mar 10 11:43:04 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Repeat Monitor
+Fri Mar 10 11:56:10 UTC 2023
+Stack Promotion is complete
+Fri Mar 10 11:56:12 UTC 2023
+Database Status is Open.
+
+Running Post Refresh script...
+Pushing OEM Agent to Resync...
+
+Running Pre Refresh script...
+Sat Mar 11 11:00:05 UTC 2023
+ aws cloudformation delete-stack --stack-name bpds-preprod-orcl-replica
+Sat Mar 11 11:01:07 UTC 2023
+ aws cloudformation wait stack-delete-complete --stack-name bpds-preprod-orcl-replica
+Sat Mar 11 11:04:40 UTC 2023
+ aws cloudformation create-stack --stack-name bpds-preprod-orcl-replica --template-url https://prod-dbas.s3-us-gov-west-1.amazonaws.com/BIP/BPDS/PRODTEST/bpds-preprod-orcl-replica-v1-022823.yml
+{
+    "StackId": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/8560c990-bffc-11ed-b87e-0a7a3a8f29e4"
+}
+Sat Mar 11 11:05:41 UTC 2023
+ aws cloudformation wait stack-create-complete --stack-name bpds-preprod-orcl-replica
+Sat Mar 11 11:49:33 UTC 2023
+Stack create is complete
+Sat Mar 11 11:50:34 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Sat Mar 11 11:50:36 UTC 2023
+ aws rds promote-read-replica --db-instance-identifier bpds-preprod
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "bpds-preprod",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "oracle-ee",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "dbadmin",
+        "DBName": "BPDPRD",
+        "Endpoint": {
+            "Address": "bpds-preprod.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com",
+            "Port": 1521,
+            "HostedZoneId": "Z2YROVNTF0QJSQ"
+        },
+        "AllocatedStorage": 100,
+        "InstanceCreateTime": "2023-03-11T11:24:35.734000+00:00",
+        "PreferredBackupWindow": "10:39-11:09",
+        "BackupRetentionPeriod": 0,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-00ae03949eb7c2775",
+                "Status": "active"
+            },
+            {
+                "VpcSecurityGroupId": "sg-04fa0c62",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "bip-dba-oracle-ee-19-pa",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-gov-west-1b",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "db-subnet-prod-gp-app-prod-a",
+            "DBSubnetGroupDescription": "Security Group for Application Database in Prod A VPC",
+            "VpcId": "vpc-5e3ae53a",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-73c7a205",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-8508cfdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1c"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-b8caacdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sat:06:00-sat:06:30",
+        "PendingModifiedValues": {
+            "BackupRetentionPeriod": 1
+        },
+        "MultiAZ": false,
+        "EngineVersion": "19.0.0.0.ru-2021-10.rur-2021-10.r1",
+        "AutoMinorVersionUpgrade": false,
+        "ReadReplicaSourceDBInstanceIdentifier": "bpds-prod",
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "ReplicaMode": "open-read-only",
+        "LicenseModel": "bring-your-own-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19-pa-rpt-v2",
+                "Status": "in-sync"
+            }
+        ],
+        "CharacterSetName": "AL32UTF8",
+        "NcharCharacterSetName": "AL16UTF16",
+        "PubliclyAccessible": false,
+        "StatusInfos": [
+            {
+                "StatusType": "read replication",
+                "Normal": true,
+                "Status": "replicating"
+            }
+        ],
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/70921ec6-915e-4cfe-bf33-323e6bcc5ab0",
+        "DbiResourceId": "db-SICSR2LFDNKINBHJQR67PJCCEA",
+        "CACertificateIdentifier": "rds-ca-rsa4096-g1",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": false,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws-us-gov:rds:us-gov-west-1:532813628429:db:bpds-preprod",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "PerformanceInsightsEnabled": false,
+        "DeletionProtection": false,
+        "AssociatedRoles": [
+            {
+                "RoleArn": "arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2",
+                "FeatureName": "S3_INTEGRATION",
+                "Status": "ACTIVE"
+            }
+        ],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "bpds-preprod-orcl-replica"
+            },
+            {
+                "Key": "Tenant",
+                "Value": "bpds"
+            },
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/8560c990-bffc-11ed-b87e-0a7a3a8f29e4"
+            },
+            {
+                "Key": "vaec:VAECID",
+                "Value": "AWG20181214001"
+            },
+            {
+                "Key": "Portfolio",
+                "Value": "BAM"
+            },
+            {
+                "Key": "vaec:CKID",
+                "Value": "180"
+            },
+            {
+                "Key": "vaec:Environment",
+                "Value": "Production"
+            },
+            {
+                "Key": "Product",
+                "Value": "BIP Platform"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "RDSDatabase"
+            },
+            {
+                "Key": "ApplicationID",
+                "Value": "bpds"
+            },
+            {
+                "Key": "ProductLine",
+                "Value": "BIA"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false,
+        "BackupTarget": "region"
+    }
+}
+Sat Mar 11 11:51:37 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Repeat Monitor
+Sat Mar 11 12:05:13 UTC 2023
+Stack Promotion is complete
+Sat Mar 11 12:05:14 UTC 2023
+Database Status is Open.
+
+Running Post Refresh script...
+Pushing OEM Agent to Resync...
+
+Running Pre Refresh script...
+Sun Mar 12 11:00:05 UTC 2023
+ aws cloudformation delete-stack --stack-name bpds-preprod-orcl-replica
+Sun Mar 12 11:01:06 UTC 2023
+ aws cloudformation wait stack-delete-complete --stack-name bpds-preprod-orcl-replica
+Sun Mar 12 11:04:39 UTC 2023
+ aws cloudformation create-stack --stack-name bpds-preprod-orcl-replica --template-url https://prod-dbas.s3-us-gov-west-1.amazonaws.com/BIP/BPDS/PRODTEST/bpds-preprod-orcl-replica-v1-022823.yml
+{
+    "StackId": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/af9b8a50-c0c5-11ed-a0a0-02a10c662d5e"
+}
+Sun Mar 12 11:05:40 UTC 2023
+ aws cloudformation wait stack-create-complete --stack-name bpds-preprod-orcl-replica
+Sun Mar 12 11:47:02 UTC 2023
+Stack create is complete
+Sun Mar 12 11:48:03 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Sun Mar 12 11:48:04 UTC 2023
+ aws rds promote-read-replica --db-instance-identifier bpds-preprod
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "bpds-preprod",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "oracle-ee",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "dbadmin",
+        "DBName": "BPDPRD",
+        "Endpoint": {
+            "Address": "bpds-preprod.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com",
+            "Port": 1521,
+            "HostedZoneId": "Z2YROVNTF0QJSQ"
+        },
+        "AllocatedStorage": 100,
+        "InstanceCreateTime": "2023-03-12T11:19:25.782000+00:00",
+        "PreferredBackupWindow": "07:57-08:27",
+        "BackupRetentionPeriod": 0,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-00ae03949eb7c2775",
+                "Status": "active"
+            },
+            {
+                "VpcSecurityGroupId": "sg-04fa0c62",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "bip-dba-oracle-ee-19-pa",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-gov-west-1b",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "db-subnet-prod-gp-app-prod-a",
+            "DBSubnetGroupDescription": "Security Group for Application Database in Prod A VPC",
+            "VpcId": "vpc-5e3ae53a",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-73c7a205",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-8508cfdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1c"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-b8caacdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sat:06:00-sat:06:30",
+        "PendingModifiedValues": {
+            "BackupRetentionPeriod": 1
+        },
+        "MultiAZ": false,
+        "EngineVersion": "19.0.0.0.ru-2021-10.rur-2021-10.r1",
+        "AutoMinorVersionUpgrade": false,
+        "ReadReplicaSourceDBInstanceIdentifier": "bpds-prod",
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "ReplicaMode": "open-read-only",
+        "LicenseModel": "bring-your-own-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19-pa-rpt-v2",
+                "Status": "in-sync"
+            }
+        ],
+        "CharacterSetName": "AL32UTF8",
+        "NcharCharacterSetName": "AL16UTF16",
+        "PubliclyAccessible": false,
+        "StatusInfos": [
+            {
+                "StatusType": "read replication",
+                "Normal": true,
+                "Status": "replicating"
+            }
+        ],
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/70921ec6-915e-4cfe-bf33-323e6bcc5ab0",
+        "DbiResourceId": "db-3FAGSUW5DTXTBYJJZ2ZBPA5URA",
+        "CACertificateIdentifier": "rds-ca-rsa4096-g1",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": false,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws-us-gov:rds:us-gov-west-1:532813628429:db:bpds-preprod",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "PerformanceInsightsEnabled": false,
+        "DeletionProtection": false,
+        "AssociatedRoles": [
+            {
+                "RoleArn": "arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2",
+                "FeatureName": "S3_INTEGRATION",
+                "Status": "ACTIVE"
+            }
+        ],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "bpds-preprod-orcl-replica"
+            },
+            {
+                "Key": "Tenant",
+                "Value": "bpds"
+            },
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/af9b8a50-c0c5-11ed-a0a0-02a10c662d5e"
+            },
+            {
+                "Key": "vaec:VAECID",
+                "Value": "AWG20181214001"
+            },
+            {
+                "Key": "Portfolio",
+                "Value": "BAM"
+            },
+            {
+                "Key": "vaec:CKID",
+                "Value": "180"
+            },
+            {
+                "Key": "vaec:Environment",
+                "Value": "Production"
+            },
+            {
+                "Key": "Product",
+                "Value": "BIP Platform"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "RDSDatabase"
+            },
+            {
+                "Key": "ApplicationID",
+                "Value": "bpds"
+            },
+            {
+                "Key": "ProductLine",
+                "Value": "BIA"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false,
+        "BackupTarget": "region"
+    }
+}
+Sun Mar 12 11:49:05 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Repeat Monitor
+Sun Mar 12 12:01:42 UTC 2023
+Stack Promotion is complete
+Sun Mar 12 12:01:43 UTC 2023
+Database Status is Open.
+
+Running Post Refresh script...
+Pushing OEM Agent to Resync...
+
+Running Pre Refresh script...
+Mon Mar 13 11:00:06 UTC 2023
+ aws cloudformation delete-stack --stack-name bpds-preprod-orcl-replica
+Mon Mar 13 11:01:07 UTC 2023
+ aws cloudformation wait stack-delete-complete --stack-name bpds-preprod-orcl-replica
+Mon Mar 13 11:02:39 UTC 2023
+ aws cloudformation create-stack --stack-name bpds-preprod-orcl-replica --template-url https://prod-dbas.s3-us-gov-west-1.amazonaws.com/BIP/BPDS/PRODTEST/bpds-preprod-orcl-replica-v1-022823.yml
+{
+    "StackId": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/92569ce0-c18e-11ed-9c6a-027008e6a37c"
+}
+Mon Mar 13 11:03:40 UTC 2023
+ aws cloudformation wait stack-create-complete --stack-name bpds-preprod-orcl-replica
+Mon Mar 13 11:49:04 UTC 2023
+Stack create is complete
+Mon Mar 13 11:50:05 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Mon Mar 13 11:50:06 UTC 2023
+ aws rds promote-read-replica --db-instance-identifier bpds-preprod
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "bpds-preprod",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "oracle-ee",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "dbadmin",
+        "DBName": "BPDPRD",
+        "Endpoint": {
+            "Address": "bpds-preprod.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com",
+            "Port": 1521,
+            "HostedZoneId": "Z2YROVNTF0QJSQ"
+        },
+        "AllocatedStorage": 100,
+        "InstanceCreateTime": "2023-03-13T11:22:00.151000+00:00",
+        "PreferredBackupWindow": "11:12-11:42",
+        "BackupRetentionPeriod": 0,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-00ae03949eb7c2775",
+                "Status": "active"
+            },
+            {
+                "VpcSecurityGroupId": "sg-04fa0c62",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "bip-dba-oracle-ee-19-pa",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-gov-west-1b",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "db-subnet-prod-gp-app-prod-a",
+            "DBSubnetGroupDescription": "Security Group for Application Database in Prod A VPC",
+            "VpcId": "vpc-5e3ae53a",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-73c7a205",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-8508cfdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1c"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-b8caacdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sat:06:00-sat:06:30",
+        "PendingModifiedValues": {
+            "BackupRetentionPeriod": 1
+        },
+        "MultiAZ": false,
+        "EngineVersion": "19.0.0.0.ru-2021-10.rur-2021-10.r1",
+        "AutoMinorVersionUpgrade": false,
+        "ReadReplicaSourceDBInstanceIdentifier": "bpds-prod",
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "ReplicaMode": "open-read-only",
+        "LicenseModel": "bring-your-own-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19-pa-rpt-v2",
+                "Status": "in-sync"
+            }
+        ],
+        "CharacterSetName": "AL32UTF8",
+        "NcharCharacterSetName": "AL16UTF16",
+        "PubliclyAccessible": false,
+        "StatusInfos": [
+            {
+                "StatusType": "read replication",
+                "Normal": true,
+                "Status": "replicating"
+            }
+        ],
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/70921ec6-915e-4cfe-bf33-323e6bcc5ab0",
+        "DbiResourceId": "db-2JLCTRQ563QEZU4QYYUCK5POVY",
+        "CACertificateIdentifier": "rds-ca-rsa4096-g1",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": false,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws-us-gov:rds:us-gov-west-1:532813628429:db:bpds-preprod",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "PerformanceInsightsEnabled": false,
+        "DeletionProtection": false,
+        "AssociatedRoles": [
+            {
+                "RoleArn": "arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2",
+                "FeatureName": "S3_INTEGRATION",
+                "Status": "ACTIVE"
+            }
+        ],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "bpds-preprod-orcl-replica"
+            },
+            {
+                "Key": "Tenant",
+                "Value": "bpds"
+            },
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/92569ce0-c18e-11ed-9c6a-027008e6a37c"
+            },
+            {
+                "Key": "vaec:VAECID",
+                "Value": "AWG20181214001"
+            },
+            {
+                "Key": "Portfolio",
+                "Value": "BAM"
+            },
+            {
+                "Key": "vaec:CKID",
+                "Value": "180"
+            },
+            {
+                "Key": "vaec:Environment",
+                "Value": "Production"
+            },
+            {
+                "Key": "Product",
+                "Value": "BIP Platform"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "RDSDatabase"
+            },
+            {
+                "Key": "ApplicationID",
+                "Value": "bpds"
+            },
+            {
+                "Key": "ProductLine",
+                "Value": "BIA"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false,
+        "BackupTarget": "region"
+    }
+}
+Mon Mar 13 11:51:08 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Repeat Monitor
+Mon Mar 13 12:03:44 UTC 2023
+Stack Promotion is complete
+Mon Mar 13 12:03:45 UTC 2023
+Database Status is Open.
+
+Running Post Refresh script...
+Pushing OEM Agent to Resync...
+
+Running Pre Refresh script...
+Tue Mar 14 11:00:05 UTC 2023
+ aws cloudformation delete-stack --stack-name bpds-preprod-orcl-replica
+Tue Mar 14 11:01:06 UTC 2023
+ aws cloudformation wait stack-delete-complete --stack-name bpds-preprod-orcl-replica
+Tue Mar 14 11:04:39 UTC 2023
+ aws cloudformation create-stack --stack-name bpds-preprod-orcl-replica --template-url https://prod-dbas.s3-us-gov-west-1.amazonaws.com/BIP/BPDS/PRODTEST/bpds-preprod-orcl-replica-v1-022823.yml
+{
+    "StackId": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/0498b260-c258-11ed-8d00-0621a1375560"
+}
+Tue Mar 14 11:05:41 UTC 2023
+ aws cloudformation wait stack-create-complete --stack-name bpds-preprod-orcl-replica
+Tue Mar 14 11:44:31 UTC 2023
+Stack create is complete
+Tue Mar 14 11:45:32 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Tue Mar 14 11:45:33 UTC 2023
+ aws rds promote-read-replica --db-instance-identifier bpds-preprod
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "bpds-preprod",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "oracle-ee",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "dbadmin",
+        "DBName": "BPDPRD",
+        "Endpoint": {
+            "Address": "bpds-preprod.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com",
+            "Port": 1521,
+            "HostedZoneId": "Z2YROVNTF0QJSQ"
+        },
+        "AllocatedStorage": 100,
+        "InstanceCreateTime": "2023-03-14T11:19:24.776000+00:00",
+        "PreferredBackupWindow": "13:06-13:36",
+        "BackupRetentionPeriod": 0,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-00ae03949eb7c2775",
+                "Status": "active"
+            },
+            {
+                "VpcSecurityGroupId": "sg-04fa0c62",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "bip-dba-oracle-ee-19-pa",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-gov-west-1c",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "db-subnet-prod-gp-app-prod-a",
+            "DBSubnetGroupDescription": "Security Group for Application Database in Prod A VPC",
+            "VpcId": "vpc-5e3ae53a",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-73c7a205",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-8508cfdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1c"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-b8caacdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sat:06:00-sat:06:30",
+        "PendingModifiedValues": {
+            "BackupRetentionPeriod": 1
+        },
+        "MultiAZ": false,
+        "EngineVersion": "19.0.0.0.ru-2021-10.rur-2021-10.r1",
+        "AutoMinorVersionUpgrade": false,
+        "ReadReplicaSourceDBInstanceIdentifier": "bpds-prod",
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "ReplicaMode": "open-read-only",
+        "LicenseModel": "bring-your-own-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19-pa-rpt-v2",
+                "Status": "in-sync"
+            }
+        ],
+        "CharacterSetName": "AL32UTF8",
+        "NcharCharacterSetName": "AL16UTF16",
+        "PubliclyAccessible": false,
+        "StatusInfos": [
+            {
+                "StatusType": "read replication",
+                "Normal": true,
+                "Status": "replicating"
+            }
+        ],
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/70921ec6-915e-4cfe-bf33-323e6bcc5ab0",
+        "DbiResourceId": "db-HCNP27PZDBRZNWEG6YGF35KTTY",
+        "CACertificateIdentifier": "rds-ca-rsa4096-g1",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": false,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws-us-gov:rds:us-gov-west-1:532813628429:db:bpds-preprod",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "PerformanceInsightsEnabled": false,
+        "DeletionProtection": false,
+        "AssociatedRoles": [
+            {
+                "RoleArn": "arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2",
+                "FeatureName": "S3_INTEGRATION",
+                "Status": "ACTIVE"
+            }
+        ],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "bpds-preprod-orcl-replica"
+            },
+            {
+                "Key": "Tenant",
+                "Value": "bpds"
+            },
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/0498b260-c258-11ed-8d00-0621a1375560"
+            },
+            {
+                "Key": "vaec:VAECID",
+                "Value": "AWG20181214001"
+            },
+            {
+                "Key": "Portfolio",
+                "Value": "BAM"
+            },
+            {
+                "Key": "vaec:CKID",
+                "Value": "180"
+            },
+            {
+                "Key": "vaec:Environment",
+                "Value": "Production"
+            },
+            {
+                "Key": "Product",
+                "Value": "BIP Platform"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "RDSDatabase"
+            },
+            {
+                "Key": "ApplicationID",
+                "Value": "bpds"
+            },
+            {
+                "Key": "ProductLine",
+                "Value": "BIA"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false,
+        "BackupTarget": "region"
+    }
+}
+Tue Mar 14 11:46:34 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Repeat Monitor
+Tue Mar 14 11:57:40 UTC 2023
+Stack Promotion is complete
+Tue Mar 14 11:57:42 UTC 2023
+Database Status is Open.
+
+Running Post Refresh script...
+Pushing OEM Agent to Resync...
+
+Running Pre Refresh script...
+Wed Mar 15 11:00:05 UTC 2023
+ aws cloudformation delete-stack --stack-name bpds-preprod-orcl-replica
+Wed Mar 15 11:01:07 UTC 2023
+ aws cloudformation wait stack-delete-complete --stack-name bpds-preprod-orcl-replica
+Wed Mar 15 11:04:39 UTC 2023
+ aws cloudformation create-stack --stack-name bpds-preprod-orcl-replica --template-url https://prod-dbas.s3-us-gov-west-1.amazonaws.com/BIP/BPDS/PRODTEST/bpds-preprod-orcl-replica-v1-022823.yml
+{
+    "StackId": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/2f0112d0-c321-11ed-be3a-06b506bdd872"
+}
+Wed Mar 15 11:05:41 UTC 2023
+ aws cloudformation wait stack-create-complete --stack-name bpds-preprod-orcl-replica
+Wed Mar 15 11:47:33 UTC 2023
+Stack create is complete
+Wed Mar 15 11:48:34 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Wed Mar 15 11:48:36 UTC 2023
+ aws rds promote-read-replica --db-instance-identifier bpds-preprod
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "bpds-preprod",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "oracle-ee",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "dbadmin",
+        "DBName": "BPDPRD",
+        "Endpoint": {
+            "Address": "bpds-preprod.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com",
+            "Port": 1521,
+            "HostedZoneId": "Z2YROVNTF0QJSQ"
+        },
+        "AllocatedStorage": 100,
+        "InstanceCreateTime": "2023-03-15T11:19:07.550000+00:00",
+        "PreferredBackupWindow": "12:19-12:49",
+        "BackupRetentionPeriod": 0,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-00ae03949eb7c2775",
+                "Status": "active"
+            },
+            {
+                "VpcSecurityGroupId": "sg-04fa0c62",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "bip-dba-oracle-ee-19-pa",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-gov-west-1a",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "db-subnet-prod-gp-app-prod-a",
+            "DBSubnetGroupDescription": "Security Group for Application Database in Prod A VPC",
+            "VpcId": "vpc-5e3ae53a",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-73c7a205",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-8508cfdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1c"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-b8caacdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sat:06:00-sat:06:30",
+        "PendingModifiedValues": {
+            "BackupRetentionPeriod": 1
+        },
+        "MultiAZ": false,
+        "EngineVersion": "19.0.0.0.ru-2021-10.rur-2021-10.r1",
+        "AutoMinorVersionUpgrade": false,
+        "ReadReplicaSourceDBInstanceIdentifier": "bpds-prod",
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "ReplicaMode": "open-read-only",
+        "LicenseModel": "bring-your-own-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19-pa-rpt-v2",
+                "Status": "in-sync"
+            }
+        ],
+        "CharacterSetName": "AL32UTF8",
+        "NcharCharacterSetName": "AL16UTF16",
+        "PubliclyAccessible": false,
+        "StatusInfos": [
+            {
+                "StatusType": "read replication",
+                "Normal": true,
+                "Status": "replicating"
+            }
+        ],
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/70921ec6-915e-4cfe-bf33-323e6bcc5ab0",
+        "DbiResourceId": "db-V7HRYYNZR6AF4DLR5C6WBHJPFQ",
+        "CACertificateIdentifier": "rds-ca-rsa4096-g1",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": false,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws-us-gov:rds:us-gov-west-1:532813628429:db:bpds-preprod",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "PerformanceInsightsEnabled": false,
+        "DeletionProtection": false,
+        "AssociatedRoles": [
+            {
+                "RoleArn": "arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2",
+                "FeatureName": "S3_INTEGRATION",
+                "Status": "ACTIVE"
+            }
+        ],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "bpds-preprod-orcl-replica"
+            },
+            {
+                "Key": "Tenant",
+                "Value": "bpds"
+            },
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bpds-preprod-orcl-replica/2f0112d0-c321-11ed-be3a-06b506bdd872"
+            },
+            {
+                "Key": "vaec:VAECID",
+                "Value": "AWG20181214001"
+            },
+            {
+                "Key": "Portfolio",
+                "Value": "BAM"
+            },
+            {
+                "Key": "vaec:CKID",
+                "Value": "180"
+            },
+            {
+                "Key": "vaec:Environment",
+                "Value": "Production"
+            },
+            {
+                "Key": "Product",
+                "Value": "BIP Platform"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "RDSDatabase"
+            },
+            {
+                "Key": "ApplicationID",
+                "Value": "bpds"
+            },
+            {
+                "Key": "ProductLine",
+                "Value": "BIA"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false,
+        "BackupTarget": "region"
+    }
+}
+Wed Mar 15 11:49:37 UTC 2023
+ aws rds wait db-instance-available --db-instance-identifier bpds-preprod
+Repeat Monitor
+Wed Mar 15 12:00:43 UTC 2023
+Stack Promotion is complete
+Wed Mar 15 12:00:44 UTC 2023
+Database Status is Open.
+
+Running Post Refresh script...
+Pushing OEM Agent to Resync...

@@ -1,0 +1,55 @@
+/home/oracle/bia-devel/BIA/scripts//dbhealth/BIAHealthCheck.sh: line 63: set_vault_environment: command not found
+Error making API request.
+
+URL: GET https://vault.prod8.bip.va.gov/v1/sys/internal/ui/mounts/secret/platform/prodops-dba/bip-oem
+Code: 400. Errors:
+
+* missing client token
+Error: Login failed. Retry with correct hostname, port or username / password else check the log files for further details.
+Log file location is : /home/oracle/.emcli/.emcli.log
+Error: Session expired. Run emcli login to establish a session.
+Error: Session expired. Run emcli login to establish a session.
+Error: Session expired. Run emcli login to establish a session.
+Error: Session expired. Run emcli login to establish a session.
+
+Oracle OEM Database Status written to BIAHealthCheck.txt
+
+
+Amazon AWS Data Migration Services Jobs for Fraud Prevention Latency/Status Written to BIAHealthCheck.txt
+
+
+Amazon AWS Cloud Formation Template ProdTest Refresh Status Written to BIAHealthCheck.txt
+
+kingsley.ukiwo@va.gov,connor.northrop@va.gov,patrick.lynn@va.gov,edgar.bowlin@va.gov... Connecting to [127.0.0.1] via relay...
+220 project_bia_dba_rhel8_toolbox.prod.bip.va.gov ESMTP Postfix
+>>> EHLO project_bia_dba_rhel8_toolbox.prod.bip.va.gov
+250-project_bia_dba_rhel8_toolbox.prod.bip.va.gov
+250-PIPELINING
+250-SIZE 10240000
+250-VRFY
+250-ETRN
+250-ENHANCEDSTATUSCODES
+250-8BITMIME
+250-DSN
+250 SMTPUTF8
+>>> MAIL From:<oracle@project_bia_dba_rhel8_toolbox.prod.bip.va.gov> SIZE=3291
+250 2.1.0 Ok
+>>> RCPT To:<kingsley.ukiwo@va.gov>
+>>> RCPT To:<connor.northrop@va.gov>
+>>> RCPT To:<patrick.lynn@va.gov>
+>>> RCPT To:<edgar.bowlin@va.gov>
+>>> DATA
+250 2.1.5 Ok
+250 2.1.5 Ok
+250 2.1.5 Ok
+250 2.1.5 Ok
+354 End data with <CR><LF>.<CR><LF>
+>>> .
+250 2.0.0 Ok: queued as 4C17A1E032C0
+kingsley.ukiwo@va.gov,connor.northrop@va.gov,patrick.lynn@va.gov,edgar.bowlin@va.gov... Sent (Ok: queued as 4C17A1E032C0)
+Closing connection to [127.0.0.1]
+>>> QUIT
+221 2.0.0 Bye
+
+BIA Health Check Report Complete and Emailed to BIA Team Recipients.
+

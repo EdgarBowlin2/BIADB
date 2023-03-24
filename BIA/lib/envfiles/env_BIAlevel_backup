@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# ENVIRONMENT
+export PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:$PATH
+
+# VPC SPECIFIC ENVIRONMENT SETTINGS
+MACADDR=$(curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs)
+VPCID=$(curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/${MACADDR}/vpc-id)
+
+if [[ "$VPCID" == "vpc-af38e7cb" ]]; then
+    # DEVELOPMENT SETTINGS
+    export AWSACCOUNT='D'
+    export SNSARN='arn:aws-us-gov:sns:us-gov-west-1:261727212250'
+    export VAULT_ADDR='https://vault.dev8.bip.va.gov'
+elif [[ "$VPCID" == "vpc-bb3de2df" ]]; then
+    # STAGE SETTINGS
+    export AWSACCOUNT='S'
+    export SNSARN='arn:aws-us-gov:sns:us-gov-west-1:621261082401'
+    export VAULT_ADDR='https://vault.stage8.bip.va.gov'
+elif [[ "$VPCID" == "vpc-5e3ae53a" ]]; then
+    # PRODUCTION SETTINGS
+    export AWSACCOUNT='P'
+    export SNSARN='arn:aws-us-gov:sns:us-gov-west-1:532813628429'
+    export VAULT_ADDR='https://vault.prod8.bip.va.gov'
+else
+    echo "error: VPC could not be determined."
+fi
+
+# FUNCTIONS
+get_database_metadata() {
+    lRETURNVAL=1
+    lRETURNTRY=0
+    lMAXRETRIES=3
+    lDATABASE=$1
+
+    while [[ $lRETURNVAL -gt 0 ]] && [[ $lRETURNTRY -lt $lMAXRETRIES ]]; do
+        lRDSINFO=$(aws rds describe-db-instances --db-instance-identifier $lDATABASE 2>&1)
+        lRETURNVAL=$?
+        if [[ $lRETURNVAL -ne 0 ]]; then
+            lRETURNTRY=$(($lRETURNTRY + 1))
+        fi
+
+        if [[ $lRETURNTRY -eq $lMAXRETRIES ]]; then
+            return 1
+        fi
+    done
+
+    echo "$lRDSINFO"
+    return 0
+}
+
+generate_password() {
+    while true; do
+
+        local PASSWORDLENGTH=18
+        local TRIMLENGTH=$(($PASSWORDLENGTH - 1))
+
+        local PASSWORD=$(echo $(tr </dev/urandom -dc A-Za-z0-9 | head -c1)$(tr </dev/urandom -dc 'a-zA-Z0-9!#%^*()_+<>=' | head -c$TRIMLENGTH))
+
+        local UPPERCOUNT=$(grep -o '[[:upper:]]' <<<$PASSWORD | wc -l)
+        local LOWERCOUNT=$(grep -o '[[:lower:]]' <<<$PASSWORD | wc -l)
+        local DIGITCOUNT=$(grep -o '[0-9]' <<<$PASSWORD | wc -l)
+        local SPECCOUNT=$(($PASSWORDLENGTH - $UPPERCOUNT - $LOWERCOUNT - $DIGITCOUNT))
+        if ! [ $UPPERCOUNT -lt 2 ] && ! [ $LOWERCOUNT -lt 2 ] && ! [ $DIGITCOUNT -lt 2 ] && ! [ $SPECCOUNT -lt 2 ]; then
+            break
+        fi
+
+    done
+    echo "$PASSWORD"
+}
+
+generate_database_list() {
+    local DATABASE_LIST=$(aws rds describe-db-instances | jq -r --arg TEAM "$1" '.DBInstances[] | select( .TagList[] | select(.Key=="ProductLine") | select(.Value==$TEAM)) | .DBInstanceIdentifier')
+    echo "$DATABASE_LIST"
+}

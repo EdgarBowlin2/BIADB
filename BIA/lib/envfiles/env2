@@ -1,0 +1,17 @@
+#-------------------------------
+#- BIA Level env File
+#-------------------------------
+
+#!/bin/bash
+GITROOT=$( git rev-parse --show-toplevel )
+
+# ENVIRONMENT
+export EMCLI_HOME=$HOME/software/emcli
+
+#----------------------------------------------------------------
+#- NOTE  EBowlin  02-13-2023         
+#----------------------------------------------------------------
+#-  The set_vault_environment function has been moved to the 
+#- global functions library $SCRIPT_DIR/functions/functions.sh
+#----------------------------------------------------------------
+ 

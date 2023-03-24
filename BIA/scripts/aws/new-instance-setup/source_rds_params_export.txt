@@ -1,0 +1,6 @@
+export VPC=dev
+export ENVIRONMENT=test
+export PRODUCTLINE=BIA
+export STORAGETYPE=gp2
+export TENANT=harris
+export ENCRYPTED=true

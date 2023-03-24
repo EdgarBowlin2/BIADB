@@ -1,0 +1,173 @@
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "empwr-prod",
+        "DBInstanceClass": "db.r5.8xlarge",
+        "Engine": "oracle-ee",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "dbadmin",
+        "DBName": "EMPWR",
+        "Endpoint": {
+            "Address": "empwr-prod.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com",
+            "Port": 1521,
+            "HostedZoneId": "Z2YROVNTF0QJSQ"
+        },
+        "AllocatedStorage": 6000,
+        "InstanceCreateTime": "2021-01-21T19:11:07.373000+00:00",
+        "PreferredBackupWindow": "23:00-23:30",
+        "BackupRetentionPeriod": 35,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-04fa0c62",
+                "Status": "active"
+            },
+            {
+                "VpcSecurityGroupId": "sg-00ae03949eb7c2775",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "bip-empwr-19c-rds-prod",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-gov-west-1b",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "db-subnet-prod-gp-app-prod-a",
+            "DBSubnetGroupDescription": "Security Group for Application Database in Prod A VPC",
+            "VpcId": "vpc-5e3ae53a",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-b8caacdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-8508cfdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1c"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-73c7a205",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sat:06:00-sat:06:30",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2022-10-28T15:25:29+00:00",
+        "MultiAZ": true,
+        "EngineVersion": "19.0.0.0.ru-2021-01.rur-2021-01.r2",
+        "AutoMinorVersionUpgrade": false,
+        "ReadReplicaDBInstanceIdentifiers": [
+            "arn:aws-us-gov:rds:us-gov-east-1:532813628429:db:empwr-prod"
+        ],
+        "LicenseModel": "bring-your-own-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19c-ct-v2",
+                "Status": "pending-apply"
+            },
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19c-ct",
+                "Status": "pending-removal"
+            }
+        ],
+        "CharacterSetName": "AL32UTF8",
+        "NcharCharacterSetName": "AL16UTF16",
+        "SecondaryAvailabilityZone": "us-gov-west-1c",
+        "PubliclyAccessible": false,
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/70921ec6-915e-4cfe-bf33-323e6bcc5ab0",
+        "DbiResourceId": "db-RLOHP4S6QT7WXBLOE7ZKZUIM7Q",
+        "CACertificateIdentifier": "rds-ca-rsa4096-g1",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": true,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws-us-gov:rds:us-gov-west-1:532813628429:db:empwr-prod",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "PerformanceInsightsEnabled": false,
+        "EnabledCloudwatchLogsExports": [
+            "alert",
+            "listener"
+        ],
+        "DeletionProtection": true,
+        "AssociatedRoles": [
+            {
+                "RoleArn": "arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2",
+                "FeatureName": "S3_INTEGRATION",
+                "Status": "ACTIVE"
+            }
+        ],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "bip-empwr-prod-orcl"
+            },
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/bip-empwr-prod-orcl/f18d3380-5c1a-11eb-a5f9-0ac4410c8620"
+            },
+            {
+                "Key": "vaec:VAECID",
+                "Value": "AWG20181214001"
+            },
+            {
+                "Key": "Portfolio",
+                "Value": "BAM"
+            },
+            {
+                "Key": "vaec:CKID",
+                "Value": "180"
+            },
+            {
+                "Key": "tenant:VAECID",
+                "Value": "AWG20200728001"
+            },
+            {
+                "Key": "Product",
+                "Value": "eMPWR"
+            },
+            {
+                "Key": "Tenant",
+                "Value": "empwr"
+            },
+            {
+                "Key": "tenant:CKID",
+                "Value": "1376"
+            },
+            {
+                "Key": "vaec:Environment",
+                "Value": "Production"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "RDSDatabase"
+            },
+            {
+                "Key": "ApplicationID",
+                "Value": "empwr-empwr"
+            },
+            {
+                "Key": "ProductLine",
+                "Value": "EVRE"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false,
+        "BackupTarget": "region"
+    }
+}

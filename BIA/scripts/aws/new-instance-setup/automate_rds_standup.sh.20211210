@@ -1,0 +1,28 @@
+#!/bin/bash
+################################################################################
+#
+#   Name:       automate_rds_standup.sh
+#   Create:     2021/12/07
+#   Author:     Patrick Lynn
+#   Platform:   Linux
+#   Purpose:    Generates source CFT for cloudformation standup
+################################################################################
+# set environment
+GITROOT=$( git rev-parse --show-toplevel )
+. $GITROOT/env
+. $GITROOT/BIA/env
+. $GITROOT/BIA/new-instance-setup/source_rds_params_export.txt
+DBInstanceID=${TENANT}-${ENVIRONMENT}
+set_vault_environment
+echo The database instance ID is $DBInstanceID
+
+#Copy source parameters to have a record of CFT variables
+cp source_rds_params.txt ${DBInstanceID}_source_rds_params.txt
+mv ${DBInstanceID}_source_rds_params.txt gov-west 
+
+#Standup your source instance
+aws cloudformation create-stack --stack-name ${DBInstanceID}-rds --template-body file:///home/oracle/github-devel/BIA/new-instance-setup/cft-rds-oracle.yaml --parameters ParameterKey=VPC,ParameterValue=$VPC ParameterKey=Environment,ParameterValue=$ENVIRONMENT ParameterKey=ProductLine,ParameterValue=$PRODUCTLINE ParameterKey=Tenant,ParameterValue=$TENANT ParameterKey=StorageType,ParameterValue=$STORAGETYPE
+
+#Validate vault creds
+vault kv list secret/platform/tenants
+

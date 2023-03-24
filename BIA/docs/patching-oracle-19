@@ -1,0 +1,90 @@
+0. Stage the following patches.
+
+	a. https://updates.oracle.com/download/6880880.html
+		i. OPatch 19.0
+
+	b. https://support.oracle.com/epmos/faces/DocumentDisplay?id=2521164.1
+		i. Grid Infrastructure Combo Release Update <COMBO_PATCH>
+		ii. Grid Infrastructure Release Update (Document Number Only) <GRID_PATCH>
+		iii. Database Release Update (Document Number Only) <DB_PATCH>
+		iv. OJVM Release Update (document Number only) <OJVM_PATCH> 
+
+1. Blackout notifications in Oracle Enterprise Manager.
+2. Stop DMS tasks.
+
+as ORACLE
+
+3. Stop Oracle stack.
+
+	a. ] crsctl stop has -f
+
+as ROOT
+
+4. Patch operating system and reboot server.
+
+	a. ] yum clean all
+	b. ] yum update -y
+	c. ] shutdown -r now
+
+4a. McAfee AntiVirus fix (if required)
+
+	/opt/McAfee/ens/tp/init/mfetpd-control.sh stop
+	/opt/McAfee/ens/esp/init/mfeespd-control.sh stop
+	rm -rf /var/McAfee/ens/tp/ep/epcombinedrules.db 
+	rm -rf /var/McAfee/ens/tp/aprulecache.db
+
+5. Patch Grid Infrastructure & Database.
+
+as ROOT
+	a. ] . oraenv
+		i. ORACLE_SID: +ASM
+	b. ] mv $ORACLE_HOME/OPatch $ORACLE_HOME/OPatch.$( date '+%Y%m%d' )
+	c. ] chmod g+w /u01/app/oracle/product/19.0.0/grid
+
+as ORACLE
+	a. ] . oraenv
+		i. ORACLE_SID: <DB_NAME>
+	b. ] mv $ORACLE_HOME/OPatch $ORACLE_HOME/OPatch.$( date '+%Y%m%d' )
+	c. ] unzip -d $ORACLE_HOME p6880880_190000_Linux-x86-64.zip
+	d. ] . oraenv
+		i. ORACLE_SID: +ASM
+	e. ] unzip -d $ORACLE_HOME p6880880_190000_Linux-x86-64.zip
+
+as ROOT
+	a. ] tmux
+	b. ] . oraenv
+		i. ORACLE_SID: +ASM
+	c. ] export PATH=$ORACLE_HOME/OPatch:$PATH
+	d. ] opatchauto apply <GRID_PATCH>
+
+	(lowers) October 2021 : opatchauto apply /dbshare/software/19.0.0/33248471/33182768
+
+6. Patch OJVM.
+
+as ORACLE
+
+	a. ] . oraenv
+		i. ORACLE_SID: <DB_NAME>
+	b. ] export PATH=$ORACLE_HOME/OPatch:$PATH
+	c. ] srvctl stop database -d $ORACLE_SID
+	d. ] cd <OJVM_PATCH>
+
+	(lowers) October 2021 : cd /dbshare/software/19.0.0/33248471/33192694
+
+	e. ] opatch prereq CheckConflictAgainstOHWithDetail -ph ./
+	f. ] opatch apply
+
+7. Load Modified SQL into database.
+
+	a. ] sqlplus / as sysdba
+	b. SQL> startup upgrade
+	c. SQL> exit
+	d. ] $ORACLE_HOME/OPatch/datapatch -verbose
+	e. ] srvctl stop database -d $ORACLE_SID
+	h. ] srvctl start database -d $ORACLE_SID
+
+8. Verify Patches.
+
+	a. ] opatch lspatches; opatch lspatches -oh /u01/app/oracle/product/19.0.0/grid
+
+9. Remove notification blackout in Oracle Enterprise Manager.

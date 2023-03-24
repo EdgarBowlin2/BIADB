@@ -1,0 +1,14 @@
+#!/bin/bash
+GITROOT=$(git rev-parse --show-toplevel)
+
+# ENVIRONMENT
+export EMCLI_HOME=$HOME/emcli
+
+set_vault_environment() {
+    TOKENSECRET=$(aws secretsmanager get-secret-value --secret-id vbmsdba-vault | jq --raw-output '.SecretString' | jq -r .token)
+    export VAULT_TOKEN=$(echo ${TOKENSECRET##* })
+# OVERRIDE DEFAULT VAULT TO 1.6.2 LOCATED IN $HOME/vault - jashe 2022-JAN-03
+    export PATH=$HOME/vault:$PATH
+}
+
+. $GITROOT/env

@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+#set -x
+echo "INVALID RUNJOBS PARAMETERS"
+echo "Usage: runjobs [-c <Command to Execute> *REQUIRED*] [-m <Message Subject> ] [-r <File of Email Addresses> ] [-p <Parameters to Pass> ] [-t <Type> [-e *Always Send Email*]"
+echo "       -t is I-Information (job log is informational only e.g. exports, "
+echo "             A-Action      (job log needs to be read and actioned e.g. passwords expiring)"
+echo "          default value if not set is I"
+echo ""
+exit 1

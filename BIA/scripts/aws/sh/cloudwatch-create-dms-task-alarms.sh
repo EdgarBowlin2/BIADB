@@ -1,0 +1,112 @@
+#!/bin/bash
+GITROOT=$(git rev-parse --show-toplevel)
+. $GITROOT/env
+
+# parse command line
+usage() {
+    echo "usage: $0 [ -r REPLICATION TASK NAME ] [ -s SNS TOPIC NAME ] [ -f force ]" 1>&2
+    exit 1
+}
+
+while getopts ":r:s:f" options; do
+    case "${options}" in
+        r)
+            TASK=$(echo "${OPTARG}" | tr '[:upper:]' '[:lower:]')
+            ;;
+        f)
+            FORCE=1
+            ;;
+        s)
+            SNSTOPIC=${OPTARG}
+            ;;
+        :)
+            echo "ERROR: -${OPTARG} requires an argument."
+            usage
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+
+if [[ -z "$SNSTOPIC" ]]; then
+    echo "ERROR: -s is a mandatory parameter."
+    usage
+fi
+
+if [[ -z "$TASK" ]]; then
+    echo "ERROR: -r is a mandatory parameter."
+    usage
+fi
+
+if [[ $FORCE -eq 1 ]]; then
+    echo "FORCE option chosen.  Existing alarms will be updated."
+fi
+
+# begin
+
+# VALID COMPARISON OPERATORS
+# GreaterThanOrEqualToThreshold
+# GreaterThanThreshold
+# GreaterThanUpperThreshold
+# LessThanLowerOrGreaterThanUpperThreshold
+# LessThanLowerThreshold
+# LessThanOrEqualToThreshold
+# LessThanThreshold
+
+# metric-name,threshold,comparison-operator
+METRICS=(
+    CDCLatencySource,1800,GreaterThanOrEqualToThreshold
+    CDCLatencyTarget,1800,GreaterThanOrEqualToThreshold
+)
+
+DMSINFO=$(aws dms describe-replication-tasks)
+
+FULLTASKARN=$(echo $DMSINFO | jq -r --arg TASK "$TASK" '.ReplicationTasks[] | select( .ReplicationTaskIdentifier==$TASK ) | .ReplicationTaskArn')
+TASKARN=$(echo ${FULLTASKARN##*:})
+
+if [[ -z "$TASKARN" ]]; then
+    echo "ERROR: Could not determine ARN of task."
+    exit 1
+fi
+
+REPLINSTARN=$(echo $DMSINFO | jq -r --arg TASK "$TASK" '.ReplicationTasks[] | select( .ReplicationTaskIdentifier==$TASK ) | .ReplicationInstanceArn')
+REPLINST=$(aws dms describe-replication-instances | jq -r --arg REPLINSTARN "$REPLINSTARN" ' .ReplicationInstances[] | select ( .ReplicationInstanceArn==$REPLINSTARN ) | .ReplicationInstanceIdentifier ')
+
+if [[ -z "$REPLINST" ]]; then
+    echo "ERROR: Could not determine replication instance for task."
+    exit 1
+fi
+
+for METRIC in "${METRICS[@]}"; do
+
+    METRICNAME=$(echo $METRIC | cut -d, -f1)
+    THRESHOLD=$(echo $METRIC | cut -d, -f2)
+    COMPARISON=$(echo $METRIC | cut -d, -f3)
+
+    if [[ $FORCE -ne 1 ]]; then
+        ALARM_CHECK=$(aws cloudwatch describe-alarms-for-metric --namespace AWS/DMS --metric-name $METRICNAME --dimensions Name=ReplicationInstanceIdentifier,Value=$REPLINST Name=ReplicationTaskIdentifier,Value=$TASKARN | jq -r '.MetricAlarms[] | .AlarmName')
+
+        if [[ ! -z "$ALARM_CHECK" ]]; then
+            echo "Alarm for $METRICNAME already exists."
+            continue
+        fi
+    fi
+
+    echo "Creating alarm for $METRICNAME..."
+
+    aws cloudwatch put-metric-alarm \
+        --alarm-name DMS_${METRICNAME}_${TASK} \
+        --namespace AWS/DMS \
+        --metric-name $METRICNAME \
+        --dimensions Name=ReplicationInstanceIdentifier,Value=$REPLINST Name=ReplicationTaskIdentifier,Value=$TASKARN \
+        --statistic Average \
+        --period 300 \
+        --evaluation-periods 3 \
+        --datapoints-to-alarm 3 \
+        --threshold $THRESHOLD \
+        --comparison-operator $COMPARISON \
+        --treat-missing-data missing \
+        --alarm-actions $SNSARN:$SNSTOPIC
+
+done

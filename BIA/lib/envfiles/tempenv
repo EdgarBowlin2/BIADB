@@ -1,0 +1,15 @@
+#!/bin/bash
+GITROOT=$( git rev-parse --show-toplevel )
+
+# ENVIRONMENT
+export EMCLI_HOME=$HOME/emcli
+
+set_vault_environment () {
+
+        export VAULT_ADDR='https://vault.prod8.bip.va.gov'
+        export VAULT_SECRET='bia-dbas-vault'
+        export OEM_PATH='secret/platform/prodops-dba/bip-oem'
+      	TOKENSECRET=$( aws secretsmanager get-secret-value --secret-id $VAULT_SECRET | jq --raw-output '.SecretString')
+
+	export VAULT_TOKEN=$( echo ${TOKENSECRET##* } )
+}

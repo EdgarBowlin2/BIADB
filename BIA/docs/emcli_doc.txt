@@ -1,0 +1,971 @@
+Summary of commands:
+
+
+  Basic Administration Verbs
+    argfile    -- Execute emcli verbs from a file
+    help       -- Get help for emcli verbs (Usage: emcli help [verb_name])
+    invoke_ws     -- Invoke EM web service.
+    login      -- Login to the EM Management Server (OMS)
+    logout     -- Logout from the EM Management Server
+    setup      -- Setup emcli to work with an EM Management Server
+    status     -- List emcli configuration details
+    sync       -- Synchronize with the EM Management Server
+    version    -- List emcli verb versions or the emcli client version
+
+  -- Services Verbs
+    add_beacon                    -- Add a beacon to monitoring beacons of service
+    add_beacon_pool_to_service 	  -- This  verb associates a beacon pool to a service.
+    apply_template_tests          -- Apply an XML Service Template to a Target
+    assign_test_to_target         -- Assign a test-type to a specified target-type and version
+    change_service_system_assoc   -- Change the system for a particular service
+    compare_sla                   -- Compare two SLA template XML files by outputting difference trees
+    create_aggregate_service 	  -- create an aggregate service
+    create_beacon_pool 	 -- This emcli verb creates a beacon pool.
+    create_service                -- Create a Service of given type
+    delete_beacon_pool 	  -- This  verb removes a beacon pool.
+    delete_metric_promotion       -- Delete a metric promotion on a service
+    delete_sla                    -- Delete one or more SLAs
+    delete_test                   -- Delete a Service Test
+    delete_test_threshold         -- Delete a test threshold
+    disable_sla                   -- Disable a SLA
+    disable_test                  -- Disable a Service Test monitoring
+    download_ats_test_databank_file   -- Download the specified databank file corresponding to the given ATS test
+    download_ats_test_zip         -- Download the zip bundle corresponding to the specified ATS test
+    edit_sl_rule -- Edit the service level rule for the specified service
+    enable_sla                    -- Enable a SLA
+    enable_test                   -- Enable a Service Test monitoring
+    export_sla                    -- Extract a SLA as XML
+    extract_template_tests        -- Extract a Service Template as XML
+    get_aggregate_service_info 	  -- get timezone region,  availability evaluation function and availability computation method.
+    get_aggregate_service_members -- get sub-service members, system, beacons and tests of the aggregate service
+    get_beacon_pool_info 	  -- This  verb prints  the details of a beacon pool.
+    get_test_thresholds           -- Get test thresholds
+    import_appreplay_workload 	  -- Import an Application Replay Capture 
+    import_sla                    -- Import a SLA from XML
+    list_sla                      -- List the summary of one or more SLAs
+    modify_aggregate_service 	  -- modify an aggregate service
+    remove_beacon                 -- Remove a beacon from monitoring beacons of service
+    remove_service_system_assoc   -- Remove the System for a Service of given type
+    run_avail_diag                -- Run availability diagnostics on a service target
+    run_promoted_metric_diag      -- Run promoted metric diagnostics on a service target
+    set_availability              -- Set availability type of service
+    set_key_beacons_tests         -- Set the key beacons and tests of a service
+    set_metric_promotion          -- Promote a system/test based metric to performance/usage/business metric of a service
+    set_properties                -- Set properties on a test or test, beacon level
+    set_test_threshold            -- Set a test threshold
+    sync_beacon                   -- Synchronize a beacon which is monitoring the target (reloads all collections to beacon)
+    update_beacon_pool 	 -- This emcli verb updates  a beacon pool.
+    upload_ats_test_databank_file -- Upload a databank file for the specified ATS test
+
+  ADM Verbs
+    associate_target_to_adm 		  -- Associate a target to an application data model.
+    export_adm 		  -- Export Application Data Model to a specified .xml file.
+    import_adm 		  -- Import Application Data Model from a specified .xml file.
+    list_adms 		  -- List the names, target names and application suites of existing Application Data Modeling
+    verify_adm 		  -- Submit an application data model verify job for the target specified.
+
+  AWR Warehouse Verbs
+    awrwh_add_src_db 				--Adds a database to the AWR Warehouse.
+    awrwh_list_src_dbs 				--Lists the source databases uploading to the AWR Warehouse
+    awrwh_reconfigure 				--Reconfigure AWR Warehouse parameters
+    awrwh_reconfigure_src 			--Reconfigure AWR Warehouse source database parameters
+    awrwh_remove_src_db 			--Removes a database from the AWR Warehouse
+    cman_control 				--Starts or Shuts down the connection manager depending on the value passed in -target_control_option parameter by the User.
+    cman_list_services 				--Lists the databases serviced by the connection manager
+    diagnose_awr 				--Run diagnostics for the AWR Warehouse database specified by the targetName and targetType parameters
+    set_awr_cred 				--Set the database and host credential for the AWR Warehouse database specified by the targetName and targetType parameters
+    update_awr_packages 			--This verb submits an EM job to update AWR Warehouse related packages on warehouse and source DBs.
+
+  Account Management Verbs - Oracle Database
+    get_db_account 		  -- Shows the database account details as username,profile,account status,authentication type and expiry date for a give search criteria
+    get_db_profile 		  -- Shows the database profile details as profile,resource name,resource type and limit for a given search criteria
+    update_db_account_status 		  -- Updates the database account status to any of LOCKED,OPEN,EXPIRED and LOCKED & EXPIRED
+    update_db_password 		  -- Update the target password change in EM Credential Sub-System and change at target database
+
+  Add Host Verbs
+    continue_add_host             -- Continue a failed Add Host session
+    get_add_host_status           -- Displays the latest status of an Add Host session.
+    list_add_host_platforms       -- Lists the platforms on which the Add Host operation can be performed. 
+    list_add_host_sessions        -- Lists all the Add Host sessions.
+    retry_add_host                -- Retry a failed Add Host session
+    submit_add_host               -- Submits an Add Host session.
+    submit_add_remote_host 
+
+  Agent Administration Verbs
+    get_agent_properties     -- Displays details of all properties of an agent
+    get_agent_property       -- Displays the value of specific property of an agent
+    restart_agent            -- Restart an agent
+    secure_agent             -- Secure an agent
+    set_agent_property       -- Modify specific property of an agent
+    start_agent              -- Start an agent
+    stop_agent               -- Shut down an agent
+    unsecure_agent           -- Unsecure an agent
+
+  Agent Recovery Verbs
+    resyncAgent 	  -- Agent Recovery
+
+  Agent Update Verbs
+    get_agent_unsubscribe_status 	 -- Show Agent Unsubscribe Results
+    get_agent_update_status 	 -- Show Agent Update Results
+    get_not_updatable_agents 	 -- Shows Not Updatable Agents
+    get_updatable_agents 	 -- Show Updatable Agents
+    subscribe_agents 	 -- Subscribes agent with the gold agent image
+    unsubscribe_agents 	 -- Given list of agents will be unsubscribed from the gold agent image
+    update_agents 		 -- Performs Agent Update Prereqs and submits Agent Update Job
+
+  Agent Upgrade Verbs
+    get_agent_upgrade_status 	 -- Displays the Management Agent upgrade results.
+    get_signoff_agents 		 -- Displays a list of Management Agents that are available for sign off.
+    get_signoff_status 		 -- Displays the Management Agent sign off results.
+    get_upgradable_agents 	 -- Displays a list of upgradable Management Agents
+    signoff_agents 		 -- Prepares the environment for Management Agent sign-off, and submits the Management Agent sign-off job. Management Agent sign-off cleans up the old Management Agent homes, the old Oracle home targets, and the backup directories of the old Management Agents post-upgrade.
+    upgrade_agents 		 -- Prepares the environment for upgrading your Management Agents and submits the Management Agent upgrade job.
+
+  Audit Settings Verbs
+    disable_audit           -- Disable EM auditing for all user operations
+    enable_audit            -- Enable EM auditing for all user operations
+    show_audit_settings     -- Shows the current audit settings
+    show_operations_list    -- Show all auditable EM operation names
+    update_audit_settings   -- Update the audit settings
+
+  Auto Discovery Verbs
+    run_auto_discovery Run Auto Discovery on specified hosts.
+
+  BI Publisher Reports Verbs
+    deploy_bipublisher_reports     -- Deploys Enterprise Manager Oracle-provided reports to the BI Publisher catalog.
+    deploy_bipublisher_selfupdates -- Deploys Self update reports to the BI Publisher catalog.
+    grant_bipublisher_roles        -- Grants access to the BI Publisher catalog and features.
+    list_bipublisher_roles         -- Lists the BI Publisher roles for an Enterprise Manager user or an external LDAP group.
+    revoke_bipublisher_roles       -- Revokes access to the BI Publisher catalog and features.
+    setup_bipublisher              -- Sets up the relationship between Enterprise Manager and BI Publisher.
+    unregister_bipublisher         -- De-registers the relationship between Enterprise Manager and BI Publisher.
+
+  Bare Metal Provisioning Verbs
+    bareMetalProvisioning 	  -- Provision hardware boxes with Linux Operating System
+
+  Blackout Verbs
+    add_blackout_reason   -- Adds a new blackout reason.
+    create_blackout 	  -- Create a blackout
+    create_rbk 
+    delete_blackout 	  -- Delete a blackout
+    get_blackout_details  -- Get detailed info for a blackout
+    get_blackout_reasons  -- List all blackout reasons
+    get_blackout_targets  -- List targets for a blackout
+    get_blackouts 	  -- List blackouts
+    stop_blackout 	  -- Stop a blackout
+
+  CFW Verbs
+    cancel_cloud_service_requests 	  -- To cancel cloud service requests 
+    delete_cloud_service_instances 	  -- To delete cloud service instances 
+    delete_cloud_user_objects 	  -- To delete cloud user objects.
+    get_cloud_service_instances 	  -- To get information about cloud service instances 
+    get_cloud_service_requests 	  -- To get information about cloud requests 
+    get_cloud_user_objects 	  -- To get information about cloud user objects.
+    hybrid_cloud_setup 	 Setup hybrid cloud environment. Domain, client account, gateway, keys, proxy and service settings can be updated using this command.
+
+  CLI Verbs
+    list_emcli_instances       -- Displays the registered emcli instances
+
+  Change Config for JVM Pool Verbs
+    jvm_configchange  - Changes the configuration for all the JVM targets of the specified JVM Pool
+    jvmpool_configchange  - Changes the configuration of the specified JVM Pool(s).
+
+  Clean Coherence Cluster Verbs
+    clean_down_members  - Removes all the down members of the given coherence cluster target.
+
+  Cleanup Oracle Restart and Oracle Database Verbs
+    delete_oracle_database -- Cleanup oracle Database
+    delete_oracle_restart -- Cleanup Oracle Restart
+    describe_input -- Describe Cleanup Input
+
+  Clone Database Job Verb
+    clone_database 	  -- clone a database
+    refresh_database 	  -- refresh a database
+
+  Compliance Verbs
+    assign_compliance_ca         -- Assign a corrective action for a rule.
+    associate_cs_group_targets         -- Associates the specified standards with the specified groups of targets
+    associate_cs_targets         -- Associate  a compliance standard with one or more targets
+    cleanup_config_extension     --  Clean up config extension with given target
+    cleanup_cs_target_associations     --  Clean up target associations for a given standard.
+    clear_compliance_ca         -- Clear corrective actions for a rule and target type.
+    create_compare_check         -- Creates a comparison check of the specified type for the specified template and target. 
+    delete_compare_check         -- Deletes a comparison check  for the specified target. 
+    export_compliance_group          -- Export a compliance group from the repository to XML File
+    export_compliance_standard_rule  -- Export a rule from the repository to XML File
+    export_facet         -- export a real-time monitoring facet from the repository to XML File
+    export_standard                  -- Export a Standard from the repository to XML File
+    fix_compliance_state         -- Fix compliance state by removing references in deleted targets.
+    get_compliance_rule_ca         --Returns a corrective action identifier for the specified rule internal name.
+    get_compliance_rule_violation_event         --Returns a list of root_cs_guid, rqs_guid, root_target_guid, target_guid, event_instance_id's and optionally context information for the specified rule/target across the different standards that it is referred from.
+    import_compliance_object         -- Import a compliance object into the repository
+    list_compliance_rules         --Provides listing of rule of attributes. 
+    list_compliance_rules_ca         --Provides listing of corrective action metadata for a rule.
+    list_cs_rules         -- Returns root_cs_guid, rqs_guid,rule_guid, rule_iname and target type for the rules referenced by the standard.
+    list_standards         -- Returns the specified attributes optionally filtered by target_type.
+    remove_association_cs_group_targets         -- Removes the associations for the specified standards from the specified groups of targets
+    remove_cs_target_association         -- Remove Compliance Standard Target Association.
+    suppress_compliance_rule_violations       -- Suppress the violations for the provided cs_iname, author, version, rule iname, target type, target name and optionally violation guid list.
+    trigger_compliance_ca         -- Trigger a compliance corrective action event.
+    unsuppress_compliance_rule_violations       -- Un-suppress the violations for the provided cs_iname, author, version, rule iname, target type, target name and optionally violation guid list.
+    upload_compliance_standard     --  Upload Compliance Standards from SCAP data stream file.
+
+  Configuration Compare
+    clear_ccc_alert                 -- Clear CCC alert 
+    config_compare  Submits the configuration comparison job 
+    create_config_onetimecompare Create one time compare for the specified template and target type.
+    delete_config_compare_jobs                 -- Delete existing configuration comparison jobs
+    delete_config_compare_template Delete the comparison template from the repository
+    delete_config_onetimecompare Delete config one time comparison
+    export_config_compare_result Exports comparison results to a zip file
+    export_config_compare_template Exports the comparison template to a xml file
+    export_config_onetimecompare_result Export one time comparison result
+    get_config_compare_jobs                 -- Get a list of existing configuration comparison jobs
+    get_config_onetimecomparisons Get all one time comparisons
+    get_config_templates  Gets all the comparison templates from the repository 
+    import_config_compare_template Imports the comparison template
+    set_ccc_globals                 -- Set CCC Global 
+
+  Configuration Data
+    delete_config_search  Delete the saved search from the repository 
+    export_config_search  Export the saved Cconfiguration Search as an XML 
+    get_config_searches  Gets all the saved configuration searches from the repository 
+    import_config_search  Import the search configuration as an XML to the repository 
+    run_config_search  Executes a configuration search and displays the results 
+
+  Configuration/Association History
+    disable_config_history               --Disable configuration history computation for a target type.
+    enable_config_history                --Enable configuration history computation for a target type.
+    get_config_history_searches  Gets all the saved history configuration search from the repository 
+    run_config_history  Run the saved history configuration search and display the results 
+    set_config_history_retention_period  --Sets the amount of time for which Configuration History is retained.
+
+  Connector Verbs
+    publish_change_request_ccc  -- Sends Approved/Emergency change request to EM CCC
+    update_ticket_status        -- Sends Incident/Ticket status to EM when there is Status change in Incident Management system
+
+  Cost Center Management verbs
+    create_cost_centers Creates one or many cost centers in given organizational entities.
+    create_organizational_entity Creates an Organizational Entity of type department or line of business.Cost centers can also be created along with creating the organizational entity.
+    get_organizational_hierarchy Get the Organizational Hierarchy rooted at given organizational Entity 
+    update_organizational_entity Updates an Organizational Entity.Type and name attribute can be updates.Also Cost centers can be added.
+
+  Create Database Job Verbs
+    create_database -- Create a database
+
+  Credential Verbs
+    clear_credential 		  -- Clear preferred or monitoring credentials for given users
+    clear_default_pref_cred 	  -- Clears the default preferred credential set for the target type
+    clear_monitoring_credential   -- Clears the monitoring credential set for the target
+    clear_preferred_credential 	  -- Clear the preferred credential set for the target
+    create_credential_set 	  -- Creates a new credential set
+    create_named_credential 	  -- Create named credential
+    delete_credential_set 	  -- Deletes credential set
+    delete_named_credential 	  -- Deletes named credential
+    get_credtype_metadata 	  -- Prints metadata information for a credential type
+    get_duplicate_credentials 	 -- Retrieves the duplicate credentials for a given named credential
+    get_named_credential 	  -- Displays the details of named credential
+    list_named_credentials 	  -- Lists the named credentials
+    merge_credentials 		  -- Merges the given named credentials
+    modify_named_credential 	  -- Modifies a named credential property or credential column value
+    set_credential 		  -- Set preferred or monitoring credentials for given users
+    set_default_pref_cred 	  -- Sets the default preferred credential for the target
+    set_monitoring_credential 	  -- Sets the monitoring credential for the target
+    set_preferred_credential 	  -- Set the preferred credential for the target
+    show_credential_set_info 	  -- Display the credential set parameters
+    show_credential_type_info 	  -- Display the credential type parameters
+    test_named_credential 	  -- Tests the named credentials
+    update_credential_set 
+    update_host_password 	 -- Records the change to the host password, in the Enterprise Manager credential subsystem.
+    update_monitoring_creds_from_agent 	  -- Updates monitoring credentials from a Management Agent if not present in the Management Repository
+    update_password 		  -- Update passwords for a given target
+    update_target_password 	  -- Records the changes to the target password, in the Enterprise Manager credential subsystem.
+
+  Credential Verbs - Oracle Exadata Storage Server
+    update_exadata_storage_server_password Updates the passwords in the Enterprise Manager Credential sub-system and optionally change the password on the targets for specified Oracle Exadata Storage Server targets if remote password change is supported and enabled. This verb also propagates the collection or monitoring credentials to Enterprise Manager Management Agents.
+
+  Custom Plug-in update verbs
+    create_custom_plugin_update         -- Creates a custom plug-in update to be used for subsequent plug-in deployments.
+    delete_custom_plugin_update         -- Deletes a custom plug-in update from system so that it is            no longer used for any subsequent plug-in deployments.
+    import_custom_plugin_update         -- Imports a custom plug-in update created by using Extensibility           Development Kit to be used for subsequent plug-in deployments.
+    list_custom_plugin_updates         -- Lists all custom plug-in updates created or imported till now.
+    list_patches_in_custom_plugin_update         -- Displays the patches included in a selected custom plug-in update.
+
+  Data Guard EMCLI Verbs
+    create_far_sync 	  -- Create Data Guard Far Sync Instance
+    create_standby 	  -- Create Standby Database
+    create_standby_database 	  -- Create Standby Database
+    dg_change_protection_mode 	  -- Change Data Guard Protection Mode
+    dg_configure_fsfo 	  -- Configure Data Guard fast-start failover
+    dg_configure_observers 	  -- Configure fast-start failover Observer(s)
+    dg_convert_standby 	  -- Convert Standby Database
+    dg_failover 	  -- Data Guard Failover
+    dg_remove_configuration 	 --Remove Data Guard Configuration
+    dg_remove_standby_database 	 --Remove Standby Database
+    dg_switchover 	  -- Data Guard Switchover
+    dg_verify_config 	  -- Verify Data Guard Configuration
+    failover 	  -- Data Guard Failover
+    switchover 	  -- Data Guard Switchover
+    verify_config 	  -- Verify Data Guard Configuration
+
+  Data Refresh Clone Database Job Verbs
+    create_clone -- Clone a database
+    data_transfer -- Transfer data from source host to destination host
+
+  Data Source Management Verb Group
+    data_source_management 
+
+  Data Subset Verbs
+    export_subset_definition 			--Export specified subset definition as XML file at specified directory path.
+    generate_subset 				--Generate subset using specified subset definition and target database.
+    import_subset_definition 			--Import a subset definition from specified XML file.
+    import_subset_dump 				--Import dump file into specified target database.
+    list_subset_definitions 			--Get the list of subset definition, adm and target name
+
+  Database Clone Management Verb
+    db_clone_management -- Database clone life cycle management
+
+  Database Import Job Verbs
+    dbimport -- Import Data to a database
+
+  Database Machine Targets Customer Support Identifier (CSI)  Assignment Verbs
+    assign_csi_for_dbmachine_targets       -- Assigns Customer Support Identifier (CSI) to all targets associated with passed database machine name
+
+  Database Profile Job Verb
+    create_dbprofile 	-- Create Database Profile
+    delete_dbprofile 	-- Delete Database Profile
+    describe_dbprofile_input 	-- Describe Database Profile Input
+    edit_dbprofile 	-- Edit Profile Schedule and Purge Policy
+    list_dbprofiles 	-- List Database Profiles
+    refresh_dbprofile 	-- Refresh Single Profile
+
+  Database Replay Verbs
+    discover_workloads 			-- Describes the captures (and replays) contained in a directory.
+    import_replays 			-- Imports the replays contained in a directory.
+    import_workloads 			-- Imports the captures (and replays) contained in a directory.
+    start_replay 			-- Starts a new replay.
+
+  Delete Database Job Verbs
+    delete_database -- Delete a database
+
+  Delete pluggable Database Job Verbs
+    delete_pluggable_database  -- Delete a pluggable database
+
+  Deployment Procedure Verbs
+    confirm_instance           -- Confirm manual step
+    delete_instance            -- Delete a stopped or completed Deployment Instance
+    delete_procedure       -- Delete a Deployment Procedure
+    describe_procedure_input   -- Describe input data of a Deployment Procedure or Procedure Configuration
+    get_executions             -- Display execution list of a submission
+    get_instance_data          -- Download Instance Properties Data
+    get_instance_status        -- Display Procedure Instance status
+    get_instances              -- Display list of Procedure Instances
+    get_procedure_types        -- Display Procedure types
+    get_procedure_xml          -- Download Deployment Procedure XML
+    get_procedures             -- Display Procedure and pre-saved Configurations lists
+    get_retry_arguments        -- Get arguments of failed steps which can be retried
+    get_runtime_data       -- Get the runtime data of an execution
+    ignore_instance            -- Ignore failed step
+    reschedule_instance        -- Reschedule a submitted Procedure Instance for execution
+    resume_instance            -- Resume a suspended Deployment Instance
+    retry_instance             -- Retry failed instance or failed step
+    save_procedure_input       -- Config a Deployment Procedure for execution
+    stop_instance              -- Stop a scheduled, failed or running Deployment Instance
+    submit_procedure           -- Submit a Deployment Procedure for execution
+    suspend_instance           -- Suspend a running Deployment Instance
+    update_and_retry_step      -- Update arguments of the failed step and retry it
+    update_procedure_input     -- Update the configuration of a Deployment Procedure
+
+  Diagchecks Verbs
+    apply_diagcheck_exclude        -- Apply a diagcheck exclusion to a set of targets
+    define_diagcheck_exclude       -- (Re)define a diagcheck exclusion for a particular target type
+    diagchecks_deploy_status       -- Print the deployment status of diagnostic checks against targets
+    diagchecks_deploy_tgtlist      -- List the targets in a particular deployment category
+    list_diagcheck_exclude_applies -- List the targets for a particular diagcheck exclude
+    list_diagcheck_exclusions      -- List the diagcheck exclusions defined for a particular target type
+    list_diagchecks                -- List the diagnostic checks defined for a particular target type
+    undeploy_diagchecks            -- Undeploy diagnostic checks for targets
+    update_diagchecks              -- Update diagcheck metadata/scripts for targets
+
+  Diagnostic Snapshot Verbs
+    create_diag_snapshot 	  -- get summary for Create Diagnostic Snapshot Verb
+    delete_diag_snapshot 	  -- get summary for Delete Diagnostic Snapshot Verb
+
+  Discover and Push to Agent Verbs
+    add_cloud_db_target 	  -- Discover Oracle Cloud DB
+    discover_coherence 	  -- Discover Oracle Coherence Cluster
+    discover_db 	  -- Discover Oracle DB
+    discover_gf 	  -- Discover Oracle GlassFish Domain
+    discover_otd 	  -- Discover Oracle Traffic Director
+    discover_wls 	  -- Discover Oracle Fusion Middleware/WebLogic Domain
+    generate_discovery_input -- Generate Discovery Input file for discovering Auto-Discovered Domains
+    migrate_db_target_from_tcp_to_tcps Used to migrate a db target to secure monitoring config 
+    modify_monitoring_agent -- Modify Monitoring Agent
+    relocate_wls          -- Relocate wls
+
+  Discovery Prechecks
+    fmw_discovery_prechecks 	  -- Fusion Middleware Discovery Prechecks Verb
+
+  EM Auto SR - ASR
+    em_asr_asset_actcred 	-- Adds an activation credential for an Oracle Auto Service Request (ASR) target.
+    em_asr_asset_activation_details 	-- Downloads a CSV file with activation details about all Oracle Auto Service Request (ASR) targets.
+    em_asr_asset_activation_job 	-- Manages the Oracle Auto Service Request (ASR) activation job. Use this verb to show the job status, start the job, or reschedule it.
+    em_asr_asset_exclude_list 	-- Adds or removes targets to or from the Oracle Auto Service Request (ASR) exclude list.
+    em_asr_asset_include_list 	-- Adds or removes targets to or from the Oracle Auto Service Request (ASR) include list.
+    em_asr_deregister  -- Removes the ASR registration
+    em_asr_register  -- Takes MOS credentials as input and enables ASR functionality in EM.
+    em_asr_xsl_upload  -- Takes XSL file template to generate create/update/close SRmessage for ASR as input and update it to database
+
+  EM Prerequisite Checks
+    list_prerequisites  -- Shows the EM Prerequisites
+    run_prerequisites  -- Performs the EM Prerequisite checks
+
+  EM Remote File Browser
+    browse_file 	-- List contents of a directory on a remote target host.
+    download_file 	-- Download a file or files (tar) from a remote target host.
+
+  Event and Incident Verbs
+    add_comment_to_event 	 -- Add a comment to an event
+    add_comment_to_incident 	 -- Add a comment to an incident
+    add_comment_to_problem 	 -- Add a comment to a problem
+    clear_problem             -- Clear one or more problems with their underlying incidents and events
+    create_resolution_state   -- Create a resolution state
+    delete_incident_record    -- Delete one or more open incidents
+    delete_resolution_state   -- Delete a resolution state
+    enable_or_disable_event_correlation_rule 	 -- Enable or Disable event correlation rule
+    generate_downtime_contact   -- Get downtime contact information for the given target
+    get_resolution_states     -- Get list of Incident/Problem resolution states
+    manage_incident 	 -- Manage workflow attributes of an incident.
+    modify_resolution_state   -- Modify a resolution state
+    publish_event             -- Publish a user-reported event
+    suppress_incident 	 -- Suppress an incident
+    suppress_problem 	 -- Suppress a problem
+    unsuppress_incident 	 -- Unsuppress an incident
+    unsuppress_problem 	 -- Unsuppress a problem
+
+  Execute Command Verbs
+    execute_hostcmd     -- Execute a host command
+    execute_sql 	  -- execute a sql command
+
+  Fusion Middleware Diagnostic Advisor Verbs
+    activate_mda_finding_types 	 -- Activate the specified Middleware Diagnostic Advisor(MDA) finding type(s)
+    deactivate_mda_finding_types 	 -- Deactivate the specified Middleware Diagnostic Advisor(MDA) finding type(s)
+    disable_mda_finding_types_for_targets 	 -- Disable specified Middleware Diagnostic Advisor (MDA) finding type(s) for the given target(s)
+    enable_mda_finding_types_for_targets 	 -- Enable specified Middleware Diagnostic Advisor (MDA) finding type(s) for the given target(s)
+    get_mda_engine_status 	 -- Get the current status of the Middleware Diagnostics Advisor (MDA) Engine
+    list_mda_finding_types 	 -- List all finding types registered with Middleware Diagnostic Advisor (MDA)
+    list_mda_properties 	 -- List MDA properties and their current values
+    run_mda_health_check 	 -- Submit health check job for Middleware Diagnostics Advisor (MDA) 
+    start_mda_engine 	 -- Start the  Middleware Diagnostics Advisor (MDA) Engine
+    stop_mda_engine 	 -- Stop the  Middleware Diagnostics Advisor (MDA) Engine
+    update_mda_properties 	 -- Update the specified MDA property. 
+
+  Fusion Middleware Log Management Verbs
+    configure_log_archive_locations 	  -- Configure log archive locations
+    configure_log_online_locations 	  -- Configure log online locations
+
+  Fusion Middleware Provisioning Verbs
+    create_fmw_domain_profile 	  -- Create a Fusion Middleware Provisioning Profile from a WebLogic Domain 
+    create_fmw_home_profile 	  -- Create a Fusion Middleware Provisioning Profile from an Oracle Home 
+    create_inst_media_profile 	  -- Create a Fusion Middleware Provisioning Profile from Installation Media 
+    create_partition_profile 	  -- Create a WebLogic Domain Partition Profile 
+    delete_fmw_profile 		  -- Delete Fusion Middleware Provisioning Profile 
+    describe_fmw_profile 	  -- Describe Fusion Middleware Provisioning Profile 
+    list_fmw_profiles 		  -- List Available Fusion Middleware Provisioning Profiles 
+    scaledown_domain 	 -- Scale Down WebLogic Domain
+
+  GC Target Customer Support IDentifier (CSI) Assignment Verbs
+    assign_csi_at_target_level       -- Assigns/Updates Customer Support IDentifier (CSI) to the given target name and type.
+
+  Generic Middleware Provisioning Verbs
+    create_mw_profile 		  -- Create a Generic Middleware Provisioning Profile using the provided archive(s) and properties 
+    delete_mw_profile 		  -- Delete Generic Middleware Provisioning Profile 
+    list_mw_profiles 		  -- List Available Generic Middleware Provisioning Profiles 
+    list_prov_parameters 	  -- List parameters used to provision a Generic Middleware Provisioning Profile 
+    provision_mw_profile 	  -- Provision a Generic Middleware Provisioning Profile 
+
+  Global EM Framework group
+    deregister_site 	  -- To deregister a previously registered site from the current Global EM site. 
+    register_site 	  -- To register a new site with the current Global EM site. 
+
+  Gold Agent Image Verbs
+    create_gold_agent_image                    -- Creates a gold agent image.
+    delete_gold_agent_image                    -- Deletes a gold agent image version.
+    get_gold_agent_image_activity_status       -- Gets gold agent image activity status.
+    get_gold_agent_image_details               -- Get the gold agent image details.
+    list_agents_on_gold_image                  -- Lists agents on a gold agent image.
+    list_gold_agent_image_activities           -- Lists gold agent image activities.
+    list_gold_agent_images                     -- Lists gold agent images.
+    list_gold_agent_imageversions              -- Lists the available gold agent images.
+    list_gold_image_subscribed_agent              -- Lists the  subscribed agent.
+    promote_gold_agent_image                   -- Promotes a gold agent image.
+    set_gold_agent_update_policy                   -- set Gold agent Update policy parameter
+    stage_gold_agent_image                     -- Stages a gold agent image.
+
+  Group Verbs
+    create_dynamic_group      -- Create a dynamic group
+    create_group      -- Create a group
+    delete_group      -- Deletes a group
+    export_admin_group             -- Exports Admin Group Hierarchy
+    get_group_members -- Lists the members in a group
+    get_groups        -- Lists all groups
+    import_admin_group             -- Imports Admin Group Hierarchy
+    modify_group      -- Modify a group
+
+  High Availability Verbs
+    backup_database 	  -- backup a database
+    configure_db_ha 	  -- Configure database high availability settings.
+
+  Incident Rule and Notification Verbs
+    add_target_to_rule_set 	 -- Add a target to an enterprise rule set.
+    change_ruleset_owner 	 -- Change the owner of a rule set.
+    export_incident_rule_set 	 -- Export a rule set from list of  enterprise rule set(s).
+    import_incident_rule_set 	 -- Import a rule set into EM.
+    modify_incident_rule 	 -- Enable or disable incident rules and rule sets.
+    register_event_set_for_simulation 	 -- Create set of events which can be used for simulating the rules.
+    remove_target_from_rule_set 	 -- Remove a target from an enterprise rule set.
+    simulate_rules_for_events 	 -- Simulate rules for a set of events.
+    subscribeto_rule   -- Subscribe user to rule with email notification
+    update_targets_for_events 	 -- Create set of events which can be used for simulating the rules from event and target mappings.
+
+  Installation Verbs
+    get_agentimage      -- Gets the agent image for the given platform and version
+    get_agentimage_rpm  -- Gets the agent image of given version for the linux platform and converts that image to rpm
+    get_supported_platforms  -- Lists the platforms for which the agent image is available
+
+  JBoss Target Management Verbs
+    discover_jboss 	  -- Discover JBoss Target--
+    refresh_jboss_domain 	  -- Refresh JBoss Domain--
+    refresh_jboss_partition 	  -- Refresh JBoss Partition--
+
+  JVMD Verbs
+    deploy_jvmd 	  -- Deploy JVMD agent 
+
+  Java EE Application Component Verbs
+    create_jeeappcomp         -- Create a Java EE Application Component
+    upload_jeeappcomp_file    -- Upload file to a Java EE Application Component
+
+  Job Verbs
+    add_chef_cookbook        -- Create chef cookbook entities
+    create_job               -- Create a job
+    create_job_from_library  -- Create a job using a library job as a template
+    create_library_job       -- Create a library job
+    delete_chef_cookbook     -- Delete chef cookbook entities
+    delete_job               -- Delete the specified job
+    delete_library_job       -- Delete a library job
+    describe_job             -- Describe a job
+    describe_job_type        -- Describe a job type
+    describe_library_job     -- Describe a library job
+    disable_job_type         -- Disable job types
+    enable_job_type          -- Enable job types
+    export_jobs              -- Export job details in to an xml file
+    get_job_execution_detail -- Display details of job execution
+    get_job_types            -- Lists all job types supported by EMCLI
+    get_jobs                 -- Get a list of existing jobs
+    import_jobs              -- Import job definitions from an xml file
+    job_input_file           -- Supply details for a job verb in a property file
+    job_target_criteria 
+    resume_job               -- Resume a job or set of jobs
+    retry_job                -- Restart a previously failed job execution
+    stop_job                 -- Stop the specified job
+    submit_job               -- Submit a job (Deprecated - use create_job)
+    suspend_job              -- Suspend a job or set of jobs
+
+  LatestConfigurations
+    export_latest_config  Export Latest configuration of a target
+
+  Licensing Verbs
+    grant_license_no_validation    -- Grant licenses on a set of user specified or all packs to a set of user specified or all targets belonging to the input licensable target type
+    grant_license_with_validation  -- Grant licenses on a set of user specified or all packs to a set of user specified or all targets belonging to the input licensable target type as per business rules
+    revoke_license_no_validation   -- Revoke licenses on a set of user specified or all packs from a set of user specified or all targets belonging to the input licensable target type
+    revoke_license_with_validation -- Revoke licenses on a set of user specified or all packs from a set of user specified or all targets belonging to the input licensable target type as per business rules
+
+  Masking Verbs
+    export_masking_definition 		  -- Export masking definition to the specified path.
+    generate_masking_script 		  -- Generate masking script and store in the repository
+    import_masking_definition 		  -- Import masking definition from a specified file.
+    list_masking_definitions 		  -- Get the list of masking definitions ,the associated target and their script status
+    reassoc_masking_definition 		  -- Reassociate an existing masking definition to another database target.
+    save_masking_script 		  -- Save generated masking script to the specified path.
+    submit_masking_job 			  -- Submit a masking job ,display job id and execution id 
+
+  Metric Collection And Alerts Verbs
+    clear_stateless_alerts             -- Clears one or more stateless alerts
+    collect_metric                     -- Collect metric data on demand
+    get_metric_data    -- Get current values of metric for a particular target/host
+    get_metrics_for_stateless_alerts   -- Get the list of metrics whose alerts can be manually cleared
+    get_on_demand_metrics              -- Get the list of metrics
+    get_unsync_alerts                  -- Get the list of alerts that are out-of-sync between agent and repository
+    metric_control                     -- Additional control for metric processing, including disabling metric loading
+    sync_alerts                        -- Synchronize the alert states between agent and repository
+
+  Metric Data Loading Verbs
+    disable_metric_quarantine 	  -- Disables the metric quarantine process for all metrics of all targets of given target types
+    enable_metric_data_load 	  -- re-enables the metric loading for a target whose loading has been disabled due to metric quarantine process
+    enable_metric_quarantine 	  -- Enables the metric quarantine process for all metrics of all targets of given target types
+    modify_metric_data_load_whitelist 	  -- Excludes/Includes the given targets and given metrics from metric data loading control mechanism
+
+  Metric Extension Verbs
+    export_metric_extension           -- Export a metric extension to an archive file
+    get_unused_metric_extensions      -- Get a list of unused metric extensions
+    import_metric_extension           -- Import a metric extension archive file
+    publish_metric_extension          -- Publish a metric extension for use by all administrators
+    save_metric_extension_draft       -- Save a deployable draft of a metric extension
+
+  Metric Verbs
+    get_threshold 	  -- get threshold data on a metric of a given target
+    modify_threshold 	  -- modify threshold for a given target and metric
+
+  Migrate a Non-CDB Job Verb
+    migrate_noncdb_to_pdb 	  -- Migrate a non-CDB as a PDB into a CDB 
+
+  Migrate database verbs
+    get_sample_migration_xml 				--Generates sample XML file having source and destination database mapping at specified directory location.
+    migrate_db 				-- Generates sample XML file having source and destination database mapping at specified directory location.
+
+  Monitoring Templates Verbs
+    apply_template   -- Apply a monitoring template
+    export_template  -- Export a template
+    import_template  -- Import a template
+    list_templates   -- List template names and display names
+    modify_collection_schedule   -- Modify collection schedule for a collection
+
+  OMS CPU Activity Report Verbs
+    activity_mgr_status 
+    dump_activity_list 
+    generate_activity_report 
+
+  OMS CPU Internal Metrics Report Verbs
+    get_internal_metric 
+    list_internal_metrics 
+
+  OMS Configuration Properties Verbs
+    get_oms_config_property 	  -- To get OMS Configuration Properties 
+    get_oms_logging_property 	  -- To get Logging Configuration Properties
+    list_oms_config_properties 	  -- To list OMS Configuration Properties 
+    list_oms_logging_properties   -- To list Logging Configuration Properties 
+    set_logging_property 	  -- To set Logging Configuration Properties
+    set_oms_property 		  -- To set OMS Configuration Properties
+
+  OMS Installation Properties Verbs
+    get_oms_inventory   -- Gives OMS version, plug-in details and patches applied on each home
+
+  OMS Trace Verbs
+    list_trace 		 -- Displays the list of active tracing sessions for OMS 
+    trace 		 -- Enable/disable tracing for OMS
+    trace_set_property 	 -- Sets the property for trace facility. 
+
+  OPCM System Target Management Verbs
+    discover_opcm 	  -- Discover OPCM System and associated Targets--
+
+  Oracle Database as Service Verbs
+    config_db_service_target 		  -- Configure DB Service target for Oracle Cloud
+    get_db_sys_details_from_dbname 		  -- Get Oracle Database System target details from DB Unique name
+    set_db_service_properties 		  -- Set DB Service target properties
+
+  PAAS Verbs
+    add_hybridgateway_for_hybrid_agent       -- Configure a list of hybridgateway agents with a hybrid cloud agent
+    assign_hybridgateway_for_hybrid_agent       -- Assigns a hybridgateway agent as master for a hybrid cloud agent
+    delete_hybridgateway_for_hybrid_agent       -- Delete a list of hybridgateway agents for a hybrid cloud agent
+    deregister_hybridgateway_agent       -- Deregister a list of agents as hybridgateway agents
+    register_hybridgateway_agent       -- Register a list of agents as hybridgateway agents
+
+  Patch Verbs
+    add_engr_sys_patches                -- Add a system patch for performing a patching operation.
+    create_patch_plan             -- Create a patch plan.
+    delete_patch_plans                -- Delete patch plans.
+    delete_patches                -- Delete patches from Software Library.
+    describe_engr_sys_targets            -- List all the components of an engineered system target discovered in Enterprise Manager.
+    describe_patch_plan_input             -- Describe the input data of a patch plan. 
+    export_patches                -- Export patches from Software Library
+    get_connection_mode           -- Obtain the MOS connection mode. 
+    get_engr_sys_patching_logs            -- Display the patching execution logs for a specific member target or a component of an engineered system target.
+    get_patch_plan_data           -- Obtain the user-editable data of a patch plan.
+    list_aru_languages            -- List ARU language information.
+    list_aru_platforms            -- List ARU platform information.
+    list_aru_products             -- List ARU product information. 
+    list_aru_releases             -- List ARU release information. 
+    list_patch_plans              -- List existing patch plans. 
+    search_patches                -- Search for patches in ARU site or Software Library using the specified search criteria.
+    set_connection_mode           -- Set new MOS connection mode.
+    set_engr_sys_patching_options            -- Set up the patch deployment options for the component of an engineered system.
+    set_patch_plan_data           -- Set the user-editable data of a patch plan.
+    show_applicable_engr_sys_operations            -- Show applicable patching operations that can be performed on the given engineered system target.
+    show_applicable_engr_sys_patches            -- List all the applicable system patches for a member target of an engineered system.
+    show_engr_sys_operation_status            -- Show the patching operation status of a member target or a component of an engineered system target.
+    show_engr_sys_patchable_targets            -- Display the targets of an engineered system for which a particular system patch is applicable. 
+    show_engr_sys_patching_history 
+    show_engr_sys_targets            -- List all the engineered system targets discovered in Enterprise Manager.
+    show_patch_plan               -- Show the details of a given patch plan. 
+    show_patch_readme            -- Display the patch readme.
+    stop_engr_sys_maintenance 
+    submit_engr_sys_maintenance            -- Submit a maintenance operation for one or more member targets or a component of an engineered system target.
+    submit_patch_plan             -- Submit an action on a given patch plan.
+    upload_catalog                -- Upload the catalog file 'em_catalog.zip' to Software Library.
+    upload_patches                -- Upload patches to Software Library
+
+  Ping Sub System Verbs
+    set_reverse_ping_interval   -- To modify the maximum waiting time (in seconds) since last heartbeat from Agent, after which Management Server should start a reverse ping to check the health of an Agent
+
+  Plug-in Deployment
+    deploy_plugin_on_agent         -- Deploy an Enterprise Manager plug-in on the management agents
+    deploy_plugin_on_server        -- To deploy one ore more plug-ins on the Oracle Management Server
+    get_ext_dev_kit                -- Download Extensibility Development Kit to the local machine
+    get_plugin_deployment_status   -- Display the status of plug-in deployment
+    list_plugins_on_agent          -- List plug-ins deployed on the list of agents. Default is for all agents.
+    list_plugins_on_server         -- List the plug-ins deployed on Oracle Management Server
+    redeploy_plugin_on_agent         -- Deploy an Enterprise Manager plug-in on the management agents
+    undeploy_plugin_from_agent     -- Undeploy an Enterprise Manager plug-in from the management agents
+    undeploy_plugin_from_server    -- Undeploy a plug-in from the Oracle Management Server
+
+  Pluggable Database backup Job Verbs
+    pdb_backup -- Backup a Pluggable Database
+
+  Pluggable database (PDB) clone verb
+    pdb_clone_management -- Clone a pluggable database
+
+  Privilege Delegation Settings Verbs
+    apply_privilege_delegation_setting   -- Set Privilege Delegation Setting on given targets
+    clear_default_privilege_delegation_setting -- Clears the default privilege delegation setting for a given list of platforms
+    clear_privilege_delegation_setting   -- Clear Privilege Delegation Setting from given hosts
+    create_privilege_delegation_setting  -- Create Privilege Delegation Setting Template to apply later
+    delete_privilege_delegation_settings -- Deletes Privilege Delegation Setting Template
+    list_privilege_delegation_settings   -- Lists Privilege Delegation Setting Templates available on server to apply on targets
+    list_target_privilege_delegation_settings  -- Lists current Privilege Delegation Setting on targets
+    set_default_privilege_delegation_setting -- Sets the default privilege delegation setting for a given list of platforms
+    test_privilege_delegation_setting   -- Tests a Privilege Delegation Setting on a host
+
+  Provisioning Verbs
+    provision   -- Provision a hardware server
+
+  Rconfig Job Verbs
+    convert_to_cluster_database   -- Convert a Single Instance database to Real Application Cluster(RAC) database
+
+  Redundancy Group Verbs
+    create_red_group          -- Create a group
+    create_redundancy_group   -- Create a Redundancy Group
+    modify_red_group          -- Modify a redundancy group
+    modify_redundancy_group   -- Modify a Redundancy Group
+    view_redundancy_group     -- View the present configuration of the Redundancy Group
+
+  Refresh Coherence Verbs
+    refresh_coherence 	  -- Refresh Oracle Coherence Cluster
+
+  Refresh WLS Domain Verbs
+    refresh_wls 	  -- Refresh Oracle Fusion Middleware/WebLogic Domain
+
+  Relocate Pluggable Database Verbs
+    complete_post_pdb_relocation -- Complete post pluggable database relocation
+    relocate_pdb -- Relocate a pluggable database from one container database to another
+
+  Report Import/Export Verbs
+    export_report        -- Export a Report from repository to XML file
+    get_reports          -- List all reports owned by current emcli user or other specific administrator
+    import_report        -- Import a Report into repository from XML file
+
+  Resource Verbs
+    list 	  -- Lists resource data.
+
+  SavedConfigurations
+    delete_saved_config  Delete saved configuration 
+    export_saved_config  Exports the saved configuration 
+    get_saved_configs  Gets the saved configurations from the repository 
+    import_config  Imports configuration 
+    save_latest_config  Save target's latest configuration 
+
+  Secure Communication Verbs
+    get_ca_info    -- Display the info about the Certificate Authorities
+    get_onetime_registration_token   --Get one time agent registration token
+    secure_agents  -- Secure the agent(s) with an OMS
+
+  Self Update Verbs
+    apply_update           -- Apply an update 
+    download_update           -- Download an update 
+    export_update           -- Export a Self Update archive file
+    get_update_status           -- Get latest status of update 
+    import_update           -- Import a Self Update archive file
+    import_update_catalog   Import the Self Update master catalog when Enterprise Manager is configured in offline mode 
+    remove_mos_credentials           -- Removes the My Oracle Support credentials from Oracle Enterprise Manager.
+    remove_update           -- Remove an update 
+    set_mos_credentials           -- Set the preferred credentials to simplify access to My Oracle Support. If set, you will be automatically signed in to My Oracle Support when logged into Enterprise Manager.
+    verify_updates          -- Check for missing update archives
+
+  Server Generated Alert Metric Verbs
+    validate_server_generated_alerts 		 Server Generated Alert Metric Verb
+
+  Site Guard Verbs
+    add_operation_plan_tags          -- Adds tags to an operation plan
+    add_site_properties          -- Adds user-defined properties to a Site Guard site
+    add_siteguard_aux_hosts          -- Associate new auxiliary hosts to the system
+    add_siteguard_script_credential_params          -- Adds a named credential as parameter to an existing script
+    add_siteguard_script_hosts     -- Add Site Guard script host(s)
+    configure_siteguard_lag          -- Configure apply lag and transport lag limit for databases
+    create_operation_plan          -- Create a new operation plan
+    create_siteguard_configuration -- Create a Site Guard configuration
+    create_siteguard_credential_association -- Create a Site Guard credential association
+    create_siteguard_script        -- Create Site Guard script
+    delete_operation_plan          -- Delete an operation plan
+    delete_operation_plan_tags          -- Deletes existing tags of an operation plan
+    delete_site_properties          -- Deletes user-defined properties from a Site Guard site
+    delete_siteguard_aux_host          -- Delete auxiliary host associated with a site
+    delete_siteguard_configuration -- Delete a Site Guard configuration
+    delete_siteguard_credential_association -- Delete a Site Guard credential association
+    delete_siteguard_lag          -- Deletes configured apply lag or transport lag limit for databases
+    delete_siteguard_script        -- Delete a Site Guard script
+    delete_siteguard_script_credential_params          -- Deletes an existing named credential parameter of a script
+    delete_siteguard_script_hosts  -- Delete Site Guard script host(s)
+    get_operation_plan_details     -- Get operation plan details
+    get_operation_plans            -- Lists the operation plans
+    get_site_properties          -- Gets user-defined properties for a Site Guard site
+    get_siteguard_aux_hosts          -- Get all auxiliary hosts associated with a site
+    get_siteguard_configuration    -- Get the Site Guard configuration
+    get_siteguard_credential_association -- Get Site Guard credential association(s)
+    get_siteguard_health_check_report          -- Shows a report of latest health checks for disaster recovery readiness
+    get_siteguard_health_checks          -- Shows schedule of health checks
+    get_siteguard_lag          -- Show apply lag or transport lag limit for databases
+    get_siteguard_script_credential_params          -- Lists named credential parameters of a script
+    get_siteguard_script_hosts     -- Get Site Guard script hosts
+    get_siteguard_scripts          -- Get Site Guard scripts
+    get_siteguard_supported_targets          -- Get list of all SiteGuard supported targets
+    run_prechecks                  -- Run Site Guard prechecks for any given operation plan
+    schedule_siteguard_health_checks          -- Schedule health checks for an operation plan
+    stop_siteguard_health_checks          -- Stops all future health check execution of an operation plan
+    submit_operation_plan          -- Submit the operation plan for execution
+    update_operation_plan          -- Update operation plan
+    update_site_properties          -- Updates user-defined properties for a Site Guard site
+    update_siteguard_configuration -- Update a Site Guard configuration
+    update_siteguard_credential_association -- Update a Site Guard credential association
+    update_siteguard_lag          -- Update apply lag and transport lag limit for databases
+    update_siteguard_script        -- Update Site Guard script
+
+  Software Library Verbs
+    add_swlib_storage_location       -- Add a Software Library storage location
+    create_swlib_directive_entity              -- Create a Software Library entity of type 'Directive'
+    create_swlib_entity              -- Create a Software Library entity
+    create_swlib_folder              -- Create a Software Library folder
+    delete_swlib_entity -- Deletes a revision of an entity in Software Library
+    export_swlib_cache_files        -- Export files of Software Library entities to be imported on a cache node as cached files.
+    get_swlib_entity_details     -- List details of an entity revision.
+    import_swlib_cache_files        -- Import Software Library entity files from zip file to cache node.
+    list_swlib_entities              -- List Software Library entities
+    list_swlib_entity_subtypes       -- List Software Library entity subtypes
+    list_swlib_entity_types          -- List Software Library entity types
+    list_swlib_folders               -- List Software Library folders
+    list_swlib_storage_locations     -- List Software Library storage locations
+    refer_swlib_entity_files         -- Refer files from a Software Library entity
+    reimport_swlib_metadata          -- Re-Import Software Library metadata.
+    remove_swlib_storage_location    -- Remove a Software Library storage location
+    resync_swlib_cache     -- Invoke resynchronize for one or all cache nodes.
+    stage_swlib_entity_files        -- Stage files of an entity from Software Library to a host target.
+    stage_swlib_entity_files_local        -- Stage files of an entity from Software Library to the local host not monitored by an EM Agent.
+    switch_swlib_oms_agent_storage   -- Switch OMS Host of a Software Library OMS Agent Filesystem storage location
+    update_swlib_directive_entity              -- Modify a Software Library entity of type 'Directive'
+    update_swlib_entity              -- Modify a Software Library entity
+    upload_swlib_entity_files        -- Upload files to a Software Library entity
+    verify_swlib 	             -- Verify and report Software Library state.
+
+  Software maintenance Verb Group
+    db_software_maintenance 
+    switch_database emcli switch_database:  switches database     -input_file_loc=<path of input file> 	 -dest_oh=<path of Oracle home with target patch configuration> 	 -host_creds=<Oracle home owner host credential>	 -privilege_creds=<Named credential with root privileges>	 If the target type, destination Oracle home path and credentials are consistent acrossmultiple databases, users can perform the switch without a response file. This simplerformat can also be used if the operation involves one database: emcli switch_database     -target_name=<DB target name>[,<DB target name2]* 	-target_type=<oracle_database/rac_database> 	-dest_oh=< path of Oracle home with target patch configuration > 	-host_creds=<Normal Named Host credential> 	-privilege_creds=<Named credential with root privileges>  Example:emcli switch_database -target_name=RACDB -target_type=rac_database -dest_oh=/u01/app/oracle/12.1.0.2.5 -host_creds=ORACLE_USER:EM_USER -privilege_creds=ORACLE_PRIV_USER:EM_USER
+    switch_gridinfrastructure emcli switch_gridinfrastructure:  switches grid infrastructure     -input_file_loc=<path of input file> 	 -dest_oh=<path of Oracle home with target patch configuration> 	 -host_creds=<Oracle home owner host credential>	 -privilege_creds=<Named credential with root privileges>	 If the target type, destination Oracle home path and credentials are consistent acrossmultiple grid infrastructures, users can perform the switch without a response file. This simplerformat can also be used if the operation involves one cluster/siha: emcli switch_gridinfrastructure     -target_name=<cluster target name>[,<cluster target name2]* 	-target_type=<cluster/has> 	-dest_oh=< path of Oracle home with target patch configuration > 	-host_creds=<Normal Named Host credential> 	-privilege_creds=<Named credential with root privileges>  Example:1. emcli switch_gridinfrastructure -target_name=CLUSTERN1 -target_type=cluster -dest_oh=/u01/app/oracle/12.1.0.2.5 -host_creds=ORACLE_USER:EM_USER -privilege_creds=ORACLE_PRIV_USER:EM_USER2. emcli switch_gridinfrastructure -target_name=SIHAN1 -target_type=has -dest_oh=/u01/app/oracle/12.1.0.2.5 -host_creds=ORACLE_USER:EM_USER -privilege_creds=ORACLE_PRIV_USER:EM_USER
+
+  Switch EM Monitoring Agent for Cluster target
+    switch_cluster_agent 	  -- Switch the monitoring Agent for the Cluster target
+
+  System Broadcast Verbs
+    send_system_broadcast 	  -- Send a System Broadcast to users logged into the UI
+
+  System Verbs
+    create_system        -- Creates a System
+    delete_system        -- Deletes a System
+    get_system_members   -- Lists the members in a System
+    modify_system        -- Modifies a System
+
+  TDE Operation Verbs - Oracle Database
+    tde 		  -- Perform TDE operation such as REKEY, CLOSE, OPEN, KEYSTORE DETAILS, BACKUP KEYSTORE, CHANGE KEYSTORE PASSWORD, ENCRYPT TABLESPACE, DECRYPT TABLESPACE, REKEY TABLESPACE, FINISH TABLESPACE, OFFLINE TABLESPACE, ONLINE TABLESPACE, LIST TABLESPACES on a given target database. The same verb can also be used to list all the databases with TDE details LIST DATABASES
+
+  Target Data Verbs
+    add_lifecycle_stage_name obsolete
+    add_proxy              -- Add a proxy
+    add_target             -- Add a target to the repository
+    add_target_property    -- Add a new target property to all targets of the specified target type
+    add_to_target_properties_master_list      -- adds values for a property to target properties master list
+    change_target_owner    -- Change the target owner
+    create_assoc    -- Creates target associations
+    delete_assoc    -- Deletes target associations
+    delete_from_target_properties_master_list      -- Deletes values from the target properties master list for specified property
+    delete_proxy           -- Delete a proxy
+    delete_target          -- Delete a target
+    disable_target          -- Disables the target
+    enable_target          -- Enables the target
+    get_accesspoints             -- Get all Access point targets and their current status for               a given server target.
+    get_best_implementer             -- Get Best Implementer for a given server target.
+    get_target_properties  -- List all property names for the target type provided
+    get_target_types 
+    get_targets            -- Obtain status and blackout information for targets
+    list_allowed_pairs    -- Lists allowed association types for specified source and destination
+    list_assoc    -- Lists associations between source and destination targets
+    list_proxies           -- List all proxies
+    list_target_properties_master_list_values     -- lists all values for a target property's master list
+    list_target_property_names   -- List the names for target properties
+    list_targets_having_property_value      -- lists targets using specified property name and value
+    manage_agent_partnership    -- Manages partnership between agents. Used for explicitly assigning agent partnerships    -- or excluding agents from being partners or excluding agents from being remotely monitored by other agents.
+    migrate_to_lifecycle_status  -- Migrate to Lifecycle Stage from Deployment Type
+    modify_lifecycle_stage_name  -- Change the Lifecycle Stage name
+    modify_proxy           -- Modify a proxy
+    modify_target          -- Modify a target instance definition
+    relocate_targets       -- Relocate targets from one agent to another
+    remove_target_property -- Remove the target property from all targets of the specified target type
+    rename_target          -- Rename the target
+    rename_targets_property_value      -- Rename value for targets for a property name and value
+    set_standby_agent      -- Permit targets to relocate from one agent to another
+    set_target_property_value -- Set/update the property value for targets provided
+    show_proxy             -- Show proxy details
+    test_proxy             -- Test if the proxy is reachable
+    use_target_properties_master_list      -- enables or disables Target Properties Master list to be used to validate a property
+
+  Trace Reports
+    generate_ui_trace_report         -- Generate and download UI Page performance report (to identify slow rendering pages)
+    show_connections         -- Shows all connections in used on current active threads.
+
+  Unplug pluggable Database Job Verbs
+    create_pluggable_database  -- Create a pluggable database
+    unplug_pluggable_database  -- Unplug a pluggable database
+
+  Upgrade Database Job Verbs
+    upgrade_database  -- Upgrade a database
+
+  User Administration Verbs
+    create_role   -- Create a new role
+    create_user   -- Create a new user
+    delete_role   -- Delete an existing role
+    delete_user   -- Delete an existing user
+    get_supported_privileges   -- Get the list of available privileges
+    grant_privs   -- Grant privileges to a user or role
+    grant_roles   -- Grant roles to a user or role
+    lock_user_account   -- Lock/unlock Enterprise Manager administrator account
+    modify_role   -- Modify an existing role
+    modify_user   -- Modify an existing user
+    revoke_privs  -- Revoke privileges from a user or role
+    revoke_roles  -- Revoke roles from a user or role
+
+  User Session Administration Verbs
+    list_active_sessions   -- List active session
+
+  Verbs related to  PDB targets
+    add_pdb          -- Add a pdb as a EM target under a given CDB target
+    alter_pdb_status          -- Alter PDB target mode to open or close
+    rename_pdb          -- Rename PDB target
+    sync_pdb          -- Sync a CDB target with updated information of the PDBs
+
+  WebSphere MQ Target Management Verbs
+    discover_wmq 	  -- Discover a IBM WebSphere MQ Cluster or a IBM Websphere MQ Standalone Queue Manager
+    refresh_wmq 	  -- Refresh IBM WebSphere MQ Clusters
+
+  WebSphere Target Management Verbs
+    discover_was 	  -- Discover a IBM WebSphere Cell or a IBM Websphere Standalone Server
+    refresh_was 	  -- Refresh IBM WebSphere Cells
+
+  To get the help for a single verb, execute - emcli help <verb> 
+
+

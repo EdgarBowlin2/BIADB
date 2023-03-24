@@ -1,0 +1,138 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: DMS Replication Instance for BID DEV, STAGE, and PROD VPCs
+Parameters:
+  VPC:
+    Description: The VPC of the DMS Replication Instance.
+    Type: String
+    AllowedValues:
+      - dev
+      - stage
+      - prod
+  StorageAllocated:
+    Description: Allocated Storage (GB) for log files & cached trasactions (50-1000).
+    Type: Number
+    Default: 50
+    MinValue: 50
+    MaxValue: 1000
+  Tenant:
+    Description: Tenant Name
+    Type: String
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9-]*[a-zA-Z0-9]'
+  ProductLine:
+    Description: The Product Line for the Tenant utilizing the DMS Replication Instance.  Used for tagging.
+    Type: String
+    AllowedValues:
+      - BIA
+      - VBMS
+  optionalInstanceClass:
+    Description: (OPTIONAL) DMS Replication Instance Class.  If left blank the default for the VPC will be chosen.
+    Type: String
+    Default: ''
+  optionalInstanceIndex:
+    Description: (OPTIONAL) Numerical suffix for Instance Name.  If left blank no suffix will be appended.
+    Type: String
+    Default: ''
+    AllowedPattern: '[0-9]*'
+Mappings:
+  VPCMappings:
+    dev:
+      tagEnvironment: Development
+      tagVAECID: AWG20181011001
+      mapKmsKeyId: arn:aws-us-gov:kms:us-gov-west-1:261727212250:key/0235722a-d688-40ea-9032-9fe3da389d28
+      mapReplicationInstanceClass: dms.c4.large
+      mapSubnetGroup: default-vpc-af38e7cb
+      mapVPCSecurityGroups:
+        - sg-11a82977
+    stage:
+      tagEnvironment: Stage
+      tagVAECID: AWG20190114001
+      mapKmsKeyId: arn:aws-us-gov:kms:us-gov-west-1:621261082401:key/3ef0ed6a-9b7d-4305-96fb-d43080427bfd
+      mapReplicationInstanceClass: dms.c5.large
+      mapSubnetGroup: default-vpc-bb3de2df
+      mapVPCSecurityGroups:
+        - sg-1eb6c078
+    prod:
+      tagEnvironment: Production
+      tagVAECID: AWG20181214001
+      mapKmsKeyId: arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/bc27e56f-9145-4498-9b53-405787d55695
+      mapReplicationInstanceClass: dms.c5.2xlarge
+      mapSubnetGroup: vbms-subnet-group
+      mapVPCSecurityGroups:
+        - sg-04fa0c62
+  ProductMappings:
+    BIA:
+      tagProductLine: BIA
+    VBMS:
+      tagProductLine: CandP
+Conditions:
+  condReplicationInstanceClass: !Not 
+    - !Equals 
+      - ''
+      - !Ref optionalInstanceClass
+  condInstanceIndex: !Not 
+    - !Equals 
+      - ''
+      - !Ref optionalInstanceIndex
+Resources:
+  ReplicationInstance:
+    Type: 'AWS::DMS::ReplicationInstance'
+    Properties:
+      AllocatedStorage: !Ref StorageAllocated
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: true
+      KmsKeyId: !FindInMap 
+        - VPCMappings
+        - !Ref VPC
+        - mapKmsKeyId
+      MultiAZ: false
+      PreferredMaintenanceWindow: 'sat:06:00-sat:07:00'
+      PubliclyAccessible: false
+      ReplicationInstanceClass: !If 
+        - condReplicationInstanceClass
+        - !Ref optionalInstanceClass
+        - !FindInMap 
+          - VPCMappings
+          - !Ref VPC
+          - mapReplicationInstanceClass
+      ReplicationInstanceIdentifier: !Join 
+        - '-'
+        - - !Ref Tenant
+          - 'replication-instance'
+          - !If
+            - condInstanceIndex
+            - !Ref optionalInstanceIndex
+            - !Ref AWS::NoValue
+      ReplicationSubnetGroupIdentifier: !FindInMap 
+        - VPCMappings
+        - !Ref VPC
+        - mapSubnetGroup
+      Tags:
+        - Key: ApplicationID
+          Value: !Ref Tenant
+        - Key: Portfolio
+          Value: BAM
+        - Key: Product
+          Value: VBMS
+        - Key: ProductLine
+          Value: !FindInMap 
+            - ProductMappings
+            - !Ref ProductLine
+            - tagProductLine
+        - Key: Tenant
+          Value: !Ref Tenant
+        - Key: 'vaec:CKID'
+          Value: '180'
+        - Key: 'vaec:Environment'
+          Value: !FindInMap 
+            - VPCMappings
+            - !Ref VPC
+            - tagEnvironment
+        - Key: 'vaec:VAECID'
+          Value: !FindInMap 
+            - VPCMappings
+            - !Ref VPC
+            - tagVAECID
+      VpcSecurityGroupIds: !FindInMap 
+        - VPCMappings
+        - !Ref VPC
+        - mapVPCSecurityGroups

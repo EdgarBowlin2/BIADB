@@ -1,0 +1,94 @@
+#!/bin/bash
+#10/19/22 Updated template to use new RHEL8 OEM OG - PEL
+#03/08/23 Removed sudo from awscli commands - PEL
+# Parameters
+export stackname=$1
+export instanceid=$2
+export connstring=$3
+
+#Delete Stack
+date
+echo " aws cloudformation delete-stack --stack-name ${stackname}"
+aws cloudformation delete-stack --stack-name ${stackname}
+
+#wait 10 seconds
+sleep 60
+
+#Monitor Stack Deletion
+date
+echo " aws cloudformation wait stack-delete-complete --stack-name ${stackname}"
+aws cloudformation wait stack-delete-complete --stack-name ${stackname}
+
+#Launch Cloud Formation Template
+date
+echo " aws cloudformation create-stack --stack-name ${stackname} --template-url https://prod-dbas.s3-us-gov-west-1.amazonaws.com/BIP/BPDS/PRODTEST/bpds-preprod-orcl-replica-v1-022823.yml"
+aws cloudformation create-stack --stack-name ${stackname} --template-url https://prod-dbas.s3-us-gov-west-1.amazonaws.com/BIP/BPDS/PRODTEST/bpds-preprod-orcl-replica-v1-022823.yml
+
+#wait 10 seconds
+sleep 60
+
+#Monitor Stack Creation
+date
+echo " aws cloudformation wait stack-create-complete --stack-name ${stackname}"
+aws cloudformation wait stack-create-complete --stack-name ${stackname}
+
+#Repeat Monitor
+date
+export STACKCREATE=` aws cloudformation describe-stacks --stack-name ${stackname} --query 'Stacks[0].StackStatus' --output text`
+if [[ $STACKCREATE != "CREATE_COMPLETE" ]]; then
+     aws cloudformation wait stack-create-complete --stack-name ${stackname}
+ else
+    echo "Stack create is complete"
+fi
+
+#Promote Instance
+sleep 60
+date
+echo " aws rds wait db-instance-available --db-instance-identifier ${instanceid}"
+aws rds wait db-instance-available --db-instance-identifier ${instanceid}
+date
+echo " aws rds promote-read-replica --db-instance-identifier ${instanceid}"
+aws rds promote-read-replica --db-instance-identifier ${instanceid}
+
+#wait 10 seconds
+sleep 60
+
+#Monitor Instance Promotion
+date
+echo " aws rds wait db-instance-available --db-instance-identifier ${instanceid}"
+aws rds wait db-instance-available --db-instance-identifier ${instanceid}
+
+#Repeat Monitor
+echo "Repeat Monitor"
+date
+export INSTANCEPROMOTE=` aws rds describe-db-instances --db-instance-identifier ${instanceid} --query 'DBInstances[*].{DBStatus:DBInstanceStatus}' --output text`
+if [[ $INSTANCEPROMOTE != "available" ]]; then
+     aws rds wait db-instance-available --db-instance-identifier ${instanceid}
+ else
+    echo "Stack Promotion is complete"
+fi
+
+date
+#Check database status
+VAULT_PATH=secret/platform/bia-dbas/$instanceid
+HOST=$(vault kv get -field=endpoint $VAULT_PATH)
+PORT=$(vault kv get -field=port  $VAULT_PATH)
+SID=$(vault kv get -field=sid  $VAULT_PATH)
+BIP_DBA=$(vault kv get -field=BIP_DBA  $VAULT_PATH)
+
+export DBSTATUS=`sqlplus -s BIP_DBA/"$BIP_DBA"@$HOST:$PORT/$SID<<EOF
+set echo off
+set feedback off
+set termout off
+set pages 0
+select open_mode from v\\$database;
+exit
+EOF`
+
+if [[ "$DBSTATUS" != "READ WRITE" ]]; then
+    echo "*** Database Status is not open.  Please investigate.  Exiting..."
+    exit 1
+ else
+    echo "Database Status is Open."
+    exit 0
+fi

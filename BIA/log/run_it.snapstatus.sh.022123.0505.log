@@ -1,0 +1,52 @@
+DEV  (dev-vpc-sqlplus)  i-0dc3daa66996a6784
+DEV  (non-prod-bastion)  i-097e1468c93d5dfb2
+DEV  (project-bia-dba-dev-rhel8-toolbox)  i-09a19ed0b9aa6a8c5
+DEV  (project-candp-dba-dev-toolbox)  i-0c422da138b73bca5
+DEV  (project-corpdb-11g-test)  i-0d0e3ec5b9c6fe84c
+DEV  (project-crp-corpdb_11g_dev)  i-064aa688c66a2ff41
+DEV  (project-bia-dba-dev-oem-rhel8-fresh)  i-014a75012cc74405b
+DEV  (Dev Bastion)  i-0cce8da31d389610e
+STAGE  (project-candp-dba-stage-toolbox)  i-0811388f36d51111b
+STAGE  (project-bia-dba-stage-rhel8-toolbox)  i-0e86ef971eb7a1104
+STAGE  (project-bia-dba-stage-oem-rhel8)  i-02264d1dfcde8c9c2
+STAGE  (stage-eng-bastion)  i-06de2c7871bed5fec
+STAGE  (Non Prod Stage Bastion)  i-0f67a66580c3cd3bc
+STAGE  (Non-Prod-Bastion)  i-0e3d38820347f150e
+PROD  (project_bia_dba_rhel8_toolbox)  i-029ebfc1e0eab6259
+PROD  (project_bip_dba_admin)  i-0666fdf1871a7e5ec
+PROD  (project_mbms_dba_admin)  i-0d17d07dd70135589
+PROD  (project-bia-dba-prod-oem-rhel8)  i-06a63677c04b26405
+PROD  (project_corpdb_11g_test)  i-0d09f8255825641f6
+PROD  (project_mbms_dba_admin_2)  i-0468c7f7cb6f610fe
+PROD  (prod8-bastion)  i-0febea006934bbdeb
+EC2 Snapshot Status,-s,edgar.bowlin@va.gov,patrick.lynn@va.gov connor.northrop... Connecting to [127.0.0.1] via relay...
+220 project_bia_dba_rhel8_toolbox.prod.bip.va.gov ESMTP Postfix
+>>> EHLO project_bia_dba_rhel8_toolbox.prod.bip.va.gov
+250-project_bia_dba_rhel8_toolbox.prod.bip.va.gov
+250-PIPELINING
+250-SIZE 10240000
+250-VRFY
+250-ETRN
+250-ENHANCEDSTATUSCODES
+250-8BITMIME
+250-DSN
+250 SMTPUTF8
+>>> MAIL From:<oracle@project_bia_dba_rhel8_toolbox.prod.bip.va.gov> SIZE=25617
+250 2.1.0 Ok
+>>> RCPT To:<EC2.Snapshot.Status@project_bia_dba_rhel8_toolbox.prod.bip.va.gov>
+>>> RCPT To:<-s@project_bia_dba_rhel8_toolbox.prod.bip.va.gov>
+>>> RCPT To:<edgar.bowlin@va.gov>
+>>> RCPT To:<patrick.lynn@prod-eks-tenured-edge-6d9094d50450262c.elb.us-gov-west-1.amazonaws.com>
+>>> DATA
+250 2.1.5 Ok
+501 5.1.3 Bad recipient address syntax
+250 2.1.5 Ok
+250 2.1.5 Ok
+354 End data with <CR><LF>.<CR><LF>
+>>> .
+250 2.0.0 Ok: queued as 7FAAD1E032C0
+EC2 Snapshot Status,edgar.bowlin@va.gov,patrick.lynn@va.gov connor.northrop... Sent (Ok: queued as 7FAAD1E032C0)
+/home/oracle/dead.letter... Saved message in /home/oracle/dead.letter
+Closing connection to [127.0.0.1]
+>>> QUIT
+221 2.0.0 Bye

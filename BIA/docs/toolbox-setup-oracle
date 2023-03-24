@@ -1,0 +1,8 @@
+mkdir $HOME/emcli
+wget --no-check-certificate https://oem.dev.bip.va.gov:7803/em/public_lib_download/emcli/kit/emcliadvancedkit.jar
+java -jar emcliadvancedkit.jar -install_dir=$HOME/emcli
+$HOME/emcli/emcli setup -url=https://oem.dev.bip.va.gov:7803/em -username=sysman
+
+mkdir $HOME/vault
+wget https://releases.hashicorp.com/vault/1.6.2/vault_1.6.2_linux_amd64.zip
+unzip vault_1.6.2_linux_amd64.zip -d $HOME/vault

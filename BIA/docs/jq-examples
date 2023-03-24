@@ -1,0 +1,6 @@
+# UPDATE VAULT KEY
+# KEY RENAME from key_one to key_two
+# KEY DELETE key_three and key_four
+
+JSON=$(vault kv get --format json $VAULTPATH | jq '.[] | with_entries( if .key | contains("key_one") then .key |= sub("key_one";"key_two") else . end) | del( .key_three, .key_four )')
+echo $JSON | vault kv put $VAULTPATH -

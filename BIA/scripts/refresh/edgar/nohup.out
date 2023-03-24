@@ -1,0 +1,149 @@
+READ WRITE
+Database Status is Open.
+
+Running Pre Refresh script...
+SP2-0606: Cannot create SPOOL file "/home/oracle/bia-devel/BIA/scripts/refresh/post_refresh_tasks/add_users.sql"
+set echo on;
+set feedback on;
+spool /home/oracle/scripts/refresh/logs/users.log
+CREATE PROFILE WIDE_OPEN LIMIT
+	SESSIONS_PER_USER UNLIMITED
+	CPU_PER_SESSION UNLIMITED
+	CPU_PER_CALL UNLIMITED
+	CONNECT_TIME UNLIMITED
+	IDLE_TIME UNLIMITED
+	LOGICAL_READS_PER_SESSION UNLIMITED
+	LOGICAL_READS_PER_CALL UNLIMITED
+	COMPOSITE_LIMIT UNLIMITED
+	PRIVATE_SGA UNLIMITED
+	FAILED_LOGIN_ATTEMPTS 3
+	PASSWORD_LIFE_TIME 365
+	PASSWORD_REUSE_TIME UNLIMITED
+	PASSWORD_REUSE_MAX UNLIMITED
+	PASSWORD_LOCK_TIME UNLIMITED
+	PASSWORD_GRACE_TIME 7
+	PASSWORD_VERIFY_FUNCTION NULL;
+
+alter user DBADMIN PROFILE WIDE_OPEN;
+
+   ALTER USER "DBADMIN" IDENTIFIED BY VALUES 'S:A03E85D331DA051AC58933E701EA3D30F0C010A3796E8EAFE40041209580;T:BC0CF6E97D30B33135FB31211DABA135B7C5EB952C879C2123B8ECE2E324440913F021270D8624AE39B130204FCB20BE709C4EF6ABC7B63020ACDEE737F15D21DF82CE41E328E20515E50B3D8F09C3A2'
+      DEFAULT TABLESPACE "USERS"
+      TEMPORARY TABLESPACE "TEMP";
+
+DROP PROFILE WIDE_OPEN CASCADE;
+spool off
+not spooling currently
+SQL script completed
+CLI script completed, Refresh Completed Successfully.  Beginning Post Steps.
+
+Running Post Refresh script...
+
+Profile created.
+
+
+User altered.
+
+
+User altered.
+
+alter user VANSOCSCAN PROFILE WIDE_OPEN
+           *
+ERROR at line 1:
+ORA-01918: user 'VANSOCSCAN' does not exist
+
+
+
+User altered.
+
+
+User altered.
+
+alter user LIQUIBASE_ADMIN PROFILE WIDE_OPEN
+           *
+ERROR at line 1:
+ORA-01918: user 'LIQUIBASE_ADMIN' does not exist
+
+
+
+User altered.
+
+
+User altered.
+
+SP2-0042: unknown command "ERROR:" - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-16000:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0042: unknown command "ERROR:" - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-16000:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+SP2-0734: unknown command beginning "ORA-06512:..." - rest of line ignored.
+
+User altered.
+
+
+User altered.
+
+alter user VANSOCSCAN account unlock
+           *
+ERROR at line 1:
+ORA-01918: user 'VANSOCSCAN' does not exist
+
+
+
+User altered.
+
+
+User altered.
+
+alter user LIQUIBASE_ADMIN account unlock
+           *
+ERROR at line 1:
+ORA-01918: user 'LIQUIBASE_ADMIN' does not exist
+
+
+
+User altered.
+
+
+Profile dropped.
+
+not spooling currently
+Refresh Completed Successfully
+0
+Pushing OEM Agent to Resync...
+edgar-replica.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com
+Error: Already logged in as user "SYSMAN". Use "emcli logout" to logout the current user.
+Resync job RESYNC_20220727151214449 successfully submitted
+./master_refresh.sh: line 221: /home/oracle/bia-devel/BIA/scripts/refresh/edgar/refresh/refresh.log: No such file or directory
+All Done!

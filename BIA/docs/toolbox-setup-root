@@ -1,0 +1,42 @@
+timedatectl set-timezone "America/New_York"
+
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y --nogpgcheck
+yum-config-manager --enable epel
+yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+yum clean all
+yum update -y
+
+rpm -Uvh oracle-instantclient19.13-basic-19.13.0.0.0-1.x86_64.rpm 
+rpm -Uvh oracle-instantclient19.13-sqlplus-19.13.0.0.0-1.x86_64.rpm 
+rpm -Uvh oracle-instantclient19.13-tools-19.13.0.0.0-1.x86_64.rpm
+
+yum install dos2unix -y
+yum install gh -y
+yum install java-1.8.0-openjdk.x86_64 -y
+yum install jq -y
+yum install nc -y
+yum install redis -y
+yum install stunnel -y
+yum install tmux -y
+yum install vault -y
+
+sed -i 's/inet_protocols = all/inet_protocols = ipv4/g' /etc/postfix/main.cf
+sed -i 's/#relayhost = \$mydomain/relayhost = smtp\.va\.gov/g' /etc/postfix/main.cf
+
+groupadd -g 5001 oinstall
+groupadd -g 5002 dba
+useradd -u 5000 -g oinstall -G dba oracle
+chage -M -1 -E -1 oracle
+
+echo "umask 022" >> /home/oracle/.bash_profile
+echo "alias gitupdate='git reset --hard; git clean -f; git pull'" >> /home/oracle/.bash_profile
+echo "export ORACLE_BASE=/u01/app/oracle" >> /home/oracle/.bash_profile
+echo "export PS1='[\u@\h (\$ORACLE_SID) \W]$ '" >> /home/oracle/.bash_profile
+
+cat <<EOT > /home/oracle/.aws/config
+[default]
+region = us-gov-west-1
+output = json
+cli_pager =
+EOT

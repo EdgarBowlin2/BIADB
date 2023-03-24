@@ -1,0 +1,138 @@
+#  VBMS JUMPBOX
+Host vbmsjb
+HostName dvpc-nlb-jumpbox-a2641c332609b461.elb.us-gov-west-1.amazonaws.com
+Port 47379
+User USERNAME
+IdentityFile ~/.ssh/private.pem
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+#  TOOLS
+Host devtoolbox
+HostName 10.247.224.24
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+#  ALT
+Host alt101 a1fnet
+HostName vb-alt-db101.alt.vbms.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+#  DMO
+Host dmo101 m2fnet
+HostName vb-dmo-db101r.demo.vbms.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+Host dmo102 m2perf
+HostName vb-dmo-db102r.demo.vbms.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+#  DEV
+Host dev101 d1fnet
+HostName vb-dev-db101.dev.vbms.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+Host dev102 d1perf
+HostName vb-dev-db102.dev.vbms.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+#  IVV
+Host ivv101 i1fnet
+HostName vb-ivv-db101r.ivv.vbms.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+#  PAT
+Host pat101 p1fnet
+HostName vb-pat-db101r.pat.vbms.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+#  PDT
+Host pdt101 v1fnet
+HostName vb-pdt-db101r.pdt.vbms.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+#  SHR
+Host oem101 oem
+HostName vb-shr-oem101.shared.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+#  TST
+Host tst101 t1fnet
+HostName vb-tst-db101.test.vbms.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+#  UAT
+Host uat101 u1fnet
+HostName vb-uat-db101r.uat.vbms.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2
+
+#  RATIONAL
+Host rational a2apps
+HostName vit-liv-db101.live.aide.oit.va.gov
+User USERNAME
+ProxyCommand ssh vbmsjb nc %h %p 2> /dev/null
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+ServerAliveInterval 30
+ServerAliveCountMax 2

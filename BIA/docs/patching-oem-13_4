@@ -1,0 +1,140 @@
+0. Stage the following patches.
+
+	a. https://updates.oracle.com/download/6880880.html
+		i. OPatch 19.0
+
+	b. https://support.oracle.com/epmos/faces/DocumentDisplay?id=2521164.1
+		i. Grid Infrastructure Combo Release Update <COMBO_PATCH>
+
+		Document the patch number of the following:
+		ii. Grid Infrastructure Release Update <GRID_PATCH>
+		iii. Database Release Update <DB_PATCH>
+		iv. OJVM Release Update <OJVM_PATCH> 
+
+	c. https://support.oracle.com/epmos/faces/DocumentDisplay?id=1587524.1
+		i. NextGen OPatch for FMW 12.2.1.3 <FMW_PATCH>
+
+	d. https://support.oracle.com/epmos/faces/DocumentDisplay?id=1470197.1
+		i. WebLogic 12.2.1.3 Patch Set Update <WLS_PATCH>
+
+	e. https://updates.oracle.com/download/19999993.html
+		i. Enterprise Manager Base Platform - OMS 13.4 <OMSPatcher>
+
+	f. https://support.oracle.com/epmos/faces/DocumentDisplay?id=2647078.2
+		i. OMS Release Update <OMS_PATCH>
+
+		Document the patch number of the following:
+		ii. Agent Release Update <AGENT_PATCH>
+		iii. Agent Side Database Plugin <AGENT_DB_PLUGIN>
+		iv. Agent Side System Infrastructure Plugin <AGENT_SI_PLUGIN>
+
+	g. https://support.oracle.com/epmos/faces/DocumentDisplay?id=1426973.1
+		i. EMDIAG REPVFY 13c
+
+AS ORACLE
+
+2. Stop Enterprise Manager.
+	a. ] export OMS_HOME=/u01/app/oracle/middleware
+	b. ] $OMS_HOME/bin/emctl stop oms -all
+	c. ] export AGENT_HOME=/u01/app/oracle/agent/agent_13.4.0.0.0
+	d. ] $AGENT_HOME/bin/emctl stop agent
+
+3a. For VBMS OEM: 
+	patch operating system, Grid Infrastructure, and database using the information in: patching-oracle-19
+
+3b. For BID OEM:
+
+4. Patch WebLogic.
+
+	a. ] export ORACLE_HOME=/u01/app/oracle/middleware
+	b. ] cd <FMW_PATCH>
+	c. ] chmod +x opatch_generic.jar
+	d. ] $ORACLE_HOME/oracle_common/jdk/bin/java -jar opatch_generic.jar -silent ORACLE_HOME=$ORACLE_HOME
+	e. ] export PATH=$ORACLE_HOME/OPatch:$PATH
+	f. ] cd <WLS_PATCH>
+	g. ] opatch apply
+
+5. Start WebLogic.
+
+	a. ] export PATH=$ORACLE_HOME/bin:$ORACLE_HOME/OMSPatcher:$PATH
+	b. ] emctl start oms
+	c. ] emctl stop oms
+
+6. Patch Oracle Enterprise Manager.
+
+	a. ] mv $ORACLE_HOME/OMSPatcher $ORACLE_HOME/OMSPatcher.$( date '+%Y%m%d' )
+	b. ] unzip p19999993_134000_Generic.zip -d $ORACLE_HOME
+	c. ] cd <OMS_PATCH>
+	d. ] omspatcher apply
+		i. WebLogic admin server URL: <default>
+		ii. WebLogic admin server username: <default>
+		iii. WebLogic admin server Password: <WEBLOGIC_PASSWORD>
+
+		Weblogic Password Vault location : secret/platform/candp-dbas/oem
+
+7. Start OMS and Agent.
+
+    a. ] emctl start oms
+    b. ] $AGENT_HOME/bin/emctl start agent
+
+8. Verify Repository.
+
+	a. ] unzip -d $ORACLE_HOME/emdiag repvfy12.zip
+	b. ] cd $ORACLE_HOME/emdiag/bin
+	c. ] ./repvfy upgrade
+
+to install repvfy:
+    ] ./repvfy install
+
+	d. ] ./repvfy execute optimize
+	e. ] ./repvfy verify -level 9 -detail
+		i. Execute recommended fix commands.
+        
+IN ENTERPRISE MANAGER CONSOLE
+
+9. Create Agent Patch Plan.
+
+	a. Enterprise > Provisioning and Patching > Patches & Updates
+		i. Input <OMS_AGENT_PATCH> in the "Search" tab of the "Patch Search" section.
+	b. Click "Search."
+	c. Click on row of the patch to deploy.
+	d. Click "Create Plan" or "Add to Existing Plan" if a plan already exists.
+		i. Plan Name: <PLAN>
+		ii. Click '+Add'
+			1. Select all Agent targets.
+		iii. Click "Create Plan."
+    e. Repeat the previous steps for <AGENT_DB_PLUGIN> and <AGENT_SI_PLUGIN>.
+
+10. Patch Agents.
+
+	a. Enterprise > Provisioning and Patching > Patches & Updates
+	b. Click <PLAN> in the "Plans" tab of the "Plans" section.
+	c. Plan Information
+		i. Click "Next."
+	d. Patches
+		i. Click "Next."
+	e. Deployment Options
+		i. Click "Next."
+	f. Validation
+		i. Click "Analyze."
+		ii. Click "Review" if validation returns "Ready for Deployment."
+	g. Review & Deploy
+		i. Click "Deploy."
+		ii. Click "Submit."
+
+11. Refresh Enterprise Manager WebLogic Domain.
+
+	a. Targets > Middleware
+	b. Click "/EMGC_GCDomain/GCDomain" in the "Target Name" section.
+	c. WegLogic Domain > "Refresh WebLogic Domain"
+		i. Click "Add/Update Targets" on the "Refresh WebLogic Domain" page.
+		ii. Click "Close" on the "Confirmation" window.
+		iii. Click "Add Targets" on the "Assign Agents" page.
+		iv. Click "Close" on the "Confirmation" window.
+		v. Cliick "OK" on the "Results" page.
+	d. WegLogic Domain > "Refresh WebLogic Domain"
+		i. Click "Remove Targets" on the "Refresh WebLogic Domain" page.
+		ii. Click "Close" on the "Confirmation" window.
+		iii. Click "Remove Targets" on the "Remove Targets" page.
+		iv. Click "Close" on the "Confirmation" window.
+		v. Cliick "OK" on the "Results" page.

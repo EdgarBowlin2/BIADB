@@ -1,0 +1,187 @@
+
+
+Running Pre Refresh script...
+Stack  patrick-stack  Instance   patrick-replica   ConnString  patrick-replica   Password  Q4!Iro9l8B^6#5YIMa
+Begin Stack deletion of:  patrick-stack  at  Fri Jul 22 16:34:51 UTC 2022
+aws cloudformation delete-stack --stack-name patrick-stack
+Monitor Stack Deletion of:  patrick-stack   Fri Jul 22 16:35:52 UTC 2022
+aws cloudformation wait stack-delete-complete --stack-name patrick-stack
+patrick-stack  has been deleted.  Fri Jul 22 16:39:56 UTC 2022
+Launch Cloud Formation Template for:  patrick-stack   Fri Jul 22 16:39:56 UTC 2022
+aws cloudformation create-stack --stack-name patrick-stack --template-url https://prod-dbas.s3-us-gov-west-1.amazonaws.com/BIP/BPDS/PRODTEST/patrick-orcl-replica-v2.yml
+{
+    "StackId": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/patrick-stack/ebe1c3d0-09dc-11ed-bec8-02b377c26b10"
+}
+Monitor Stack Creation.  Fri Jul 22 16:40:57 UTC 2022
+aws cloudformation wait stack-create-complete --stack-name patrick-stack
+If Stack is Still Creating, issue wait -stack-create-complete command again.  Fri Jul 22 17:16:47 UTC 2022
+Else, echo Create Complete. 
+Stack Creation is Complete.  Fri Jul 22 17:16:49 UTC 2022
+Promote Instance :  patrick-replica   Fri Jul 22 17:17:49 UTC 2022
+First, Wait for Instance Available.
+aws rds wait db-instance-available --db-instance-identifier patrick-replica
+Instance:  patrick-replica  Is Available.  Fri Jul 22 17:17:50 UTC 2022
+Promote Read Replica Instance:  patrick-replica   Fri Jul 22 17:17:50 UTC 2022
+aws rds promote-read-replica --db-instance-identifier patrick-replica
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "patrick-replica",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "oracle-ee",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "dbadmin",
+        "DBName": "ORCL",
+        "Endpoint": {
+            "Address": "patrick-replica.cetxxdbd6our.us-gov-west-1.rds.amazonaws.com",
+            "Port": 1521,
+            "HostedZoneId": "Z2YROVNTF0QJSQ"
+        },
+        "AllocatedStorage": 100,
+        "InstanceCreateTime": "2022-07-22T16:54:05.393000+00:00",
+        "PreferredBackupWindow": "11:46-12:16",
+        "BackupRetentionPeriod": 0,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-04fa0c62",
+                "Status": "active"
+            },
+            {
+                "VpcSecurityGroupId": "sg-00ae03949eb7c2775",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "bip-dba-oracle-ee-19-pa",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-gov-west-1b",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "db-subnet-prod-gp-app-prod-a",
+            "DBSubnetGroupDescription": "Security Group for Application Database in Prod A VPC",
+            "VpcId": "vpc-5e3ae53a",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-b8caacdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-8508cfdc",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1c"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-73c7a205",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-gov-west-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sat:06:00-sat:06:30",
+        "PendingModifiedValues": {
+            "BackupRetentionPeriod": 1
+        },
+        "MultiAZ": false,
+        "EngineVersion": "19.0.0.0.ru-2022-01.rur-2022-01.r1",
+        "AutoMinorVersionUpgrade": false,
+        "ReadReplicaSourceDBInstanceIdentifier": "patrick-test",
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "ReplicaMode": "open-read-only",
+        "LicenseModel": "bring-your-own-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "bip-dba-oracle-ee-19-pa-rpt",
+                "Status": "in-sync"
+            }
+        ],
+        "CharacterSetName": "AL32UTF8",
+        "NcharCharacterSetName": "AL16UTF16",
+        "PubliclyAccessible": false,
+        "StatusInfos": [
+            {
+                "StatusType": "read replication",
+                "Normal": true,
+                "Status": "replicating"
+            }
+        ],
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws-us-gov:kms:us-gov-west-1:532813628429:key/70921ec6-915e-4cfe-bf33-323e6bcc5ab0",
+        "DbiResourceId": "db-VCLTUKBDHU65T667IYYQF4RNCU",
+        "CACertificateIdentifier": "rds-ca-rsa4096-g1",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": false,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws-us-gov:rds:us-gov-west-1:532813628429:db:patrick-replica",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "PerformanceInsightsEnabled": false,
+        "DeletionProtection": false,
+        "AssociatedRoles": [
+            {
+                "RoleArn": "arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2",
+                "FeatureName": "S3_INTEGRATION",
+                "Status": "ACTIVE"
+            }
+        ],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "patrick-stack"
+            },
+            {
+                "Key": "Tenant",
+                "Value": "patrick"
+            },
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws-us-gov:cloudformation:us-gov-west-1:532813628429:stack/patrick-stack/ebe1c3d0-09dc-11ed-bec8-02b377c26b10"
+            },
+            {
+                "Key": "Portfolio",
+                "Value": "BAM"
+            },
+            {
+                "Key": "Product",
+                "Value": "BIP Platform"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "RDSDatabase"
+            },
+            {
+                "Key": "ApplicationID",
+                "Value": "patrick"
+            },
+            {
+                "Key": "ProductLine",
+                "Value": "BIA"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false
+    }
+}
+Monitor Instance Promotion of:  patrick-replica   Fri Jul 22 17:18:52 UTC 2022
+aws rds wait db-instance-available --db-instance-identifier patrick-replica
+if Instance is Still Not Available, Repeat Monitor.  Fri Jul 22 17:39:31 UTC 2022
+Else, if Instance Available, echo Promotion Complete.
+Stack Promotion is Complete for:  patrick-stack   Fri Jul 22 17:39:33 UTC 2022
+Check Database Status.  Fri Jul 22 17:39:33 UTC 2022
+Database Status is Open.
+Database Refresh Complete for:  patrick-stack   Fri Jul 22 17:39:33 UTC 2022
+
+Running Post Refresh script...
+Pushing OEM Agent to Resync...

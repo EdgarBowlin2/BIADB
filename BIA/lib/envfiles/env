@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# ENVIRONMENT
+export PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:$PATH
+
+# VPC SPECIFIC ENVIRONMENT SETTINGS
+MACADDR=$(curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs)
+VPCID=$(curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/${MACADDR}/vpc-id)
+
+if [[ "$VPCID" == "vpc-af38e7cb" ]]; then
+    # DEVELOPMENT SETTINGS
+    export AWSACCOUNT='D'
+    export SNSARN='arn:aws-us-gov:sns:us-gov-west-1:261727212250'
+    export VAULT_ADDR='https://vault.dev8.bip.va.gov'
+elif [[ "$VPCID" == "vpc-bb3de2df" ]]; then
+    # STAGE SETTINGS
+    export AWSACCOUNT='S'
+    export SNSARN='arn:aws-us-gov:sns:us-gov-west-1:621261082401'
+    export VAULT_ADDR='https://vault.stage8.bip.va.gov'
+elif [[ "$VPCID" == "vpc-5e3ae53a" ]]; then
+    # PRODUCTION SETTINGS
+    export AWSACCOUNT='P'
+    export SNSARN='arn:aws-us-gov:sns:us-gov-west-1:532813628429'
+    export VAULT_ADDR='https://vault.prod8.bip.va.gov'
+else
+    echo "error: VPC could not be determined."
+fi
+
+#------------------------------------------------------------------
+#- NOTE  EBowlin  02-13-2023 
+#------------------------------------------------------------------
+#- Functions get_database_metadata, generate_password, and 
+#- generate_database_list have been moved to the functions library:
+#- $SCRIPT_DIR/functions/functions.sh
+#------------------------------------------------------------------
+ 

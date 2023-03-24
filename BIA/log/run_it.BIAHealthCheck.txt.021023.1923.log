@@ -1,0 +1,6 @@
+INVALID RUNJOBS PARAMETERS
+Usage: runjobs [-c <Command to Execute> *REQUIRED*] [-m <Message Subject> ] [-r <File of Email Addresses> ] [-p <Parameters to Pass> ] [-t <Type> [-e *Always Send Email*]
+       -t is I-Information (job log is informational only e.g. exports, 
+             A-Action      (job log needs to be read and actioned e.g. passwords expiring)
+          default value if not set is I
+

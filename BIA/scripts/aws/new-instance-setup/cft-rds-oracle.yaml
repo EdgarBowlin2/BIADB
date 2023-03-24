@@ -1,0 +1,347 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Oracle RDS for VBMS DEV, STAGE, and PROD VPCs
+Parameters:
+  VPC:
+    Description: The VPC of the RDS database instance.
+    Type: String
+    AllowedValues:
+      - dev
+      - stage
+      - prod
+  Environment:
+    Description: The Environment of the RDS database instance.
+    Type: String
+    AllowedValues:
+      - cola
+      - dev
+      - demo
+      - int
+      - ivv
+      - pat
+      - pdt
+      - perf
+      - preprod
+      - prod
+      - prodtest
+      - stage
+      - test
+      - uat
+  OracleEngine:
+    Description: The Oracle Engine Version of the RDS database instance.
+    Type: String
+    Default: 19.0.0.0.ru-2021-07.rur-2021-07.r1
+  ProductLine:
+    Description: The Product Line for the Application utilizing the RDS database instance.  Used for tagging.
+    Type: String
+    AllowedValues:
+      - BIA
+      - VBMS
+  StorageAllocated:
+    Description: Allocated Storage for the RDS database instance (100-65536).
+    Type: Number
+    Default: 100
+    MinValue: 100
+    MaxValue: 65536
+  StorageType:
+    Description: >-
+      Storage Type for the RDS database instance.  Privisioned IOPS (io1) use
+      the setting in the optionalIops parameter.
+    Type: String
+    AllowedValues:
+      - gp2
+      - io1
+  StorageTypeio1Iops:
+    Description: >-
+      Number of Privisioned IOPS (1000-65536).  This setting will only be used
+      if the StorageType parameter is set to io1.
+    Type: Number
+    Default: 1000
+    MinValue: 1000
+    MaxValue: 65536
+  Tenant:
+    Description: Tenant Name
+    Type: String
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9-]*'
+  optionalInstanceClass:
+    Description: >-
+      (OPTIONAL) RDS Database Instance Class.  If left blank the default for the
+      Environment will be chosen.
+    Type: String
+    Default: ''
+  optionalOptionGroup:
+    Description: >-
+      (OPTIONAL) RDS Option Group.  If left blank the default for the VPC will
+      be chosen.
+    Type: String
+    Default: ''
+  optionalParameterGroup:
+    Description: >-
+      (OPTIONAL) RDS Database Parameter Group.  If left blank the default for
+      the VPC will be chosen.
+    Type: String
+    Default: ''
+  optionalSecurityGroups:
+    Description: >-
+      (OPTIONAL) VPC Security Groups as a comma separated list.  If left blank the
+      default for the VPC will be chosen.
+    Type: CommaDelimitedList
+    Default: ''
+Mappings:
+  ProductMappings:
+    BIA:
+      tagProductLine: BIA
+    VBMS:
+      tagProductLine: CandP
+  VPCMappings:
+    dev:
+      mapAssociatedRoles: ''
+      mapBackupRetentionPeriod: '14'
+      mapDBParameterGroupName: default.oracle-ee-19
+      mapDBSubnetGroupName: db-subnet-dev-gp-rds
+      mapOptionGroupName: platform-oracle19-v3
+      tagEnvironment: Development
+      tagVAECID: AWG20181011001
+      mapVPCSecurityGroups:
+        - sg-11a82977
+        - sg-09a3ed9edc43a1697
+    stage:
+      mapAssociatedRoles: ''
+      mapBackupRetentionPeriod: '14'
+      mapDBParameterGroupName: default.oracle-ee-19
+      mapDBSubnetGroupName: db-subnet-stage-gp-rds
+      mapOptionGroupName: platform-oracle19-v3
+      tagEnvironment: Stage
+      tagVAECID: AWG20190114001
+      mapVPCSecurityGroups:
+        - sg-1eb6c078
+        - sg-0e7dceaff93d0a846
+    prod:
+      mapAssociatedRoles: arn:aws-us-gov:iam::532813628429:role/project/project-rds-enhanced-monitoring-role2
+      mapBackupRetentionPeriod: '30'
+      mapDBParameterGroupName: bip-dba-oracle-ee-19
+      mapDBSubnetGroupName: db-subnet-prod-gp-app-prod-a
+      mapOptionGroupName: bip-dba-oracle-ee-19-pa-rpt
+      tagEnvironment: Production
+      tagVAECID: AWG20181214001
+      mapVPCSecurityGroups:
+        - sg-04fa0c62
+        - sg-00ae03949eb7c2775
+  EnvironmentMappings:
+    cola:
+      mapDBInstanceClass: db.t3.medium
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+    dev:
+      mapDBInstanceClass: db.t3.medium
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+    demo:
+      mapDBInstanceClass: db.m5.large
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+    int:
+      mapDBInstanceClass: db.t3.medium
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+    ivv:
+      mapDBInstanceClass: db.m5.large
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+    pat:
+      mapDBInstanceClass: db.t3.medium
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+    pdt:
+      mapDBInstanceClass: db.t3.medium
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+    perf:
+      mapDBInstanceClass: db.m5.2xlarge
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+    preprod:
+      mapDBInstanceClass: db.m5.large
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+    prod:
+      mapDBInstanceClass: db.m5.2xlarge
+      mapDeleteAutomatedBackups: 'false'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'true'
+    prodtest:
+      mapDBInstanceClass: db.m5.xlarge
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'false'
+      mapMultiAZ: 'false'
+    stage:
+      mapDBInstanceClass: db.m5.2xlarge
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+    test:
+      mapDBInstanceClass: db.t3.medium
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+    uat:
+      mapDBInstanceClass: db.m5.xlarge
+      mapDeleteAutomatedBackups: 'true'
+      mapDeletionProtection: 'true'
+      mapMultiAZ: 'false'
+Conditions:
+  condAssociatedRoles: !Not 
+    - !Equals 
+      - ''
+      - !FindInMap 
+        - VPCMappings
+        - !Ref VPC
+        - mapAssociatedRoles
+  condDBInstanceClass: !Not 
+    - !Equals 
+      - ''
+      - !Ref optionalInstanceClass
+  condDBParameterGroupName: !Not 
+    - !Equals 
+      - ''
+      - !Ref optionalParameterGroup
+  condIops: !Equals 
+    - !Ref StorageType
+    - io1
+  condOptionGroupName: !Not 
+    - !Equals 
+      - ''
+      - !Ref optionalOptionGroup
+  condVPCSecurityGroups: !Not 
+    - !Equals
+      - '' 
+      - !Select
+        - 0
+        - !Ref optionalSecurityGroups
+Resources:
+  RDStemplate:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      AllocatedStorage: !Ref StorageAllocated
+      AllowMajorVersionUpgrade: false
+      AssociatedRoles: !If 
+        - condAssociatedRoles
+        - - FeatureName: S3_INTEGRATION
+            RoleArn: !FindInMap [ VPCMappings, !Ref VPC, mapAssociatedRoles ]
+        - - !Ref AWS::NoValue
+      AutoMinorVersionUpgrade: false
+      BackupRetentionPeriod: !FindInMap 
+        - VPCMappings
+        - !Ref VPC
+        - mapBackupRetentionPeriod
+      CharacterSetName: AL32UTF8
+      CopyTagsToSnapshot: true
+      DBInstanceClass: !If 
+        - condDBInstanceClass
+        - !Ref optionalInstanceClass
+        - !FindInMap 
+          - EnvironmentMappings
+          - !Ref Environment
+          - mapDBInstanceClass
+      DBInstanceIdentifier: !Join 
+        - '-'
+        - - !Ref Tenant
+          - !Ref Environment
+      DBName: ORCL
+      DBParameterGroupName: !If 
+        - condDBParameterGroupName
+        - !Ref optionalParameterGroup
+        - !FindInMap 
+          - VPCMappings
+          - !Ref VPC
+          - mapDBParameterGroupName
+      DBSubnetGroupName: !FindInMap 
+        - VPCMappings
+        - !Ref VPC
+        - mapDBSubnetGroupName
+      DeleteAutomatedBackups: !FindInMap 
+        - EnvironmentMappings
+        - !Ref Environment
+        - mapDeleteAutomatedBackups
+      DeletionProtection: !FindInMap 
+        - EnvironmentMappings
+        - !Ref Environment
+        - mapDeletionProtection
+      EnableCloudwatchLogsExports:
+        - alert
+        - listener
+      Engine: oracle-ee
+      EngineVersion: !Ref OracleEngine
+      Iops: !If 
+        - condIops
+        - !Ref StorageTypeio1Iops
+        - !Ref AWS::NoValue
+      LicenseModel: bring-your-own-license
+      MasterUsername: dbadmin
+      MasterUserPassword: !Select
+        - 4
+        - !Split
+          - '-'
+          - !Select
+            - 2
+            - !Split
+              - '/'
+              - !Ref AWS::StackId
+      MultiAZ: !FindInMap 
+        - EnvironmentMappings
+        - !Ref Environment
+        - mapMultiAZ
+      OptionGroupName: !If 
+        - condOptionGroupName
+        - !Ref optionalOptionGroup
+        - !FindInMap 
+          - VPCMappings
+          - !Ref VPC
+          - mapOptionGroupName
+      Port: '1521'
+      PreferredBackupWindow: '05:00-06:00'
+      PreferredMaintenanceWindow: 'sat:06:00-sat:07:00'
+      PubliclyAccessible: false
+      StorageEncrypted: true
+      StorageType: !Ref StorageType
+      Tags:
+        - Key: ApplicationID
+          Value: !Ref Tenant
+        - Key: Portfolio
+          Value: BAM
+        - Key: Product
+          Value: VBMS
+        - Key: ProductLine
+          Value: !FindInMap 
+            - ProductMappings
+            - !Ref ProductLine
+            - tagProductLine
+        - Key: Tenant
+          Value: !Ref Tenant
+        - Key: 'vaec:CKID'
+          Value: '180'
+        - Key: 'vaec:Environment'
+          Value: !FindInMap 
+            - VPCMappings
+            - !Ref VPC
+            - tagEnvironment
+        - Key: 'vaec:VAECID'
+          Value: !FindInMap 
+            - VPCMappings
+            - !Ref VPC
+            - tagVAECID
+      VPCSecurityGroups: !If 
+        - condVPCSecurityGroups
+        - !Ref optionalSecurityGroups
+        - !FindInMap 
+          - VPCMappings
+          - !Ref VPC
+          - mapVPCSecurityGroups

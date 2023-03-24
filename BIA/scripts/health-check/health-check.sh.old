@@ -1,0 +1,67 @@
+
+#!/bin/bash
+GITROOT=$(git rev-parse --show-toplevel)
+. $GITROOT/env
+. $GITROOT/BIA/env
+. ./health-check-env
+
+##
+## USER DEFINED
+##
+
+OMITFROMREPORT="oem"
+
+DMS_LATENCY_THRESHOLD=900
+RDS_MULTIAZ_ENVS=(prod)
+RDS_REPLICATED_ENVS=(prod)
+RDS_REPLICATED_BLACKLIST=(idb-prod)
+RDS_STORAGE_THRESHOLD=95
+RDS_TERMPROT_ENVS=(prod)
+
+##
+## METADATA
+##
+
+CRITCSV=""
+NL=$'\n'
+set_vault_environment
+if [[ $? -ne 0 ]]; then
+    echo "ERROR: set_vault_environment failed."
+    exit 1
+fi
+
+# cloudwatch
+ALLCWALARMS=$(aws cloudwatch describe-alarms | jq -r ' .MetricAlarms[] | select( .StateValue!="OK" ) ')
+
+# dms
+STARTTIME=$(date -Iseconds -d '-1 minute')
+ENDTIME=$(date -Iseconds)
+
+ALLTASKJSON=$(aws dms describe-replication-tasks | jq -r ' .[] | .[] | select( .MigrationType | contains("cdc") )')
+ALLTASKARNS=($(echo $ALLTASKJSON | jq -r ' .ReplicationTaskArn '))
+ALLTASKTAGS=$(aws dms list-tags-for-resource --resource-arn-list ${ALLTASKARNS[*]})
+TASKARNS=($(echo $ALLTASKTAGS | jq -r --arg AWSRESOURCEK "$AWS_RESOURCE_KEY" --arg AWSRESOURCEV "$AWS_RESOURCE_VALUE" ' .[] | .[] | select ( .Key==$AWSRESOURCEK ) | select(.Value==$AWSRESOURCEV ) | .ResourceArn '))
+TASKCSV=$(
+    IFS=,
+    echo "${TASKARNS[*]}"
+)
+TASKJSON=$(aws dms describe-replication-tasks --filters Name=replication-task-arn,Values=$TASKCSV)
+echo The task is $TASKJSON
+ALLREPLINSTJSON=$(aws dms describe-replication-instances | jq -r ' .[] | .[] ')
+
+
+
+for TASKARN in "${TASKARNS[@]}"; do
+    TASKREPLARN=$(echo $TASKJSON | jq -r --arg TASKARN "$TASKARN" ' .[] | .[] | select( .ReplicationTaskArn==$TASKARN ) | .ReplicationInstanceArn ')
+    if [[ -z "$TASKREPLARN" ]]; then
+        continue
+    fi
+    REPLINSTLIST+=($(echo $ALLREPLINSTJSON | jq -r --arg TASKREPLARN "$TASKREPLARN" ' select( .ReplicationInstanceArn==$TASKREPLARN ) | .ReplicationInstanceIdentifier '))
+done
+
+readarray -t REPLINSTLIST < <(printf '%s\n' "${REPLINSTLIST[@]}" | sort -u)
+REPLINSTCSV=$(
+    IFS=,
+    echo "${REPLINSTLIST[*]}"
+)
+REPLINSTJSON=$(aws dms describe-replication-instances --filters Name=replication-instance-id,Values=$REPLINSTCSV)

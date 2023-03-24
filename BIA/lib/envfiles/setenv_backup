@@ -1,0 +1,6 @@
+#!/bin/bash
+export PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:$PATH
+. $SCRIPT_DIR/functions/functions.sh
+GITROOT=$(git rev-parse --show-toplevel)
+export EMCLI_HOME=$HOME/software/emcli
+set_vault_environment
